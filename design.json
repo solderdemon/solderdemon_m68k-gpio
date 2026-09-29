@@ -1,0 +1,1070 @@
+[
+ {
+  "ref": "J1",
+  "key": "solderdemon_m68k-gpio:BUS_2x32",
+  "value": "SOLDERDEMON M68K BUS",
+  "nets": {
+   "1": "A1",
+   "3": "A2",
+   "5": "A3",
+   "7": null,
+   "9": null,
+   "11": null,
+   "13": null,
+   "15": null,
+   "17": null,
+   "19": null,
+   "21": null,
+   "23": null,
+   "25": "A13",
+   "27": "A14",
+   "29": "A15",
+   "31": "A16",
+   "33": "A17",
+   "35": "A18",
+   "37": "A19",
+   "39": null,
+   "41": null,
+   "43": null,
+   "45": null,
+   "2": "+5V",
+   "4": null,
+   "6": "GND",
+   "8": null,
+   "10": null,
+   "12": null,
+   "14": null,
+   "16": "~{IOSEL}",
+   "18": null,
+   "20": null,
+   "22": null,
+   "24": null,
+   "26": null,
+   "28": null,
+   "30": null,
+   "32": "~{LDS}",
+   "34": null,
+   "36": "~{RESET}",
+   "47": null,
+   "49": null,
+   "51": null,
+   "53": null,
+   "55": null,
+   "57": "~{DTACK}",
+   "59": "RWB",
+   "61": "D0",
+   "63": "D1",
+   "38": null,
+   "40": null,
+   "42": null,
+   "44": null,
+   "46": null,
+   "48": null,
+   "50": null,
+   "52": null,
+   "54": "D7",
+   "56": "D6",
+   "58": "D5",
+   "60": "D4",
+   "62": "D3",
+   "64": "D2"
+  },
+  "xy": [
+   44.45,
+   105.41
+  ],
+  "pos": [
+   0,
+   0
+  ],
+  "rot": 0,
+  "fp": "solderdemon_m68k-gpio:PinSocket_2x32_P2.54mm_Horizontal_CardEdge",
+  "uuid": "5f02f873-b215-5627-80b7-812a7b9a1b63"
+ },
+ {
+  "ref": "U1",
+  "key": "74xx:74HCT688",
+  "value": "74HCT688",
+  "nets": {
+   "1": "~{IOSEL}",
+   "2": "A13",
+   "3": "GND",
+   "4": "A14",
+   "5": "GND",
+   "6": "A15",
+   "7": "GND",
+   "8": "A16",
+   "9": "GND",
+   "10": "GND",
+   "11": "A17",
+   "12": "GND",
+   "13": "A18",
+   "14": "+5V",
+   "15": "A19",
+   "16": "GND",
+   "17": "~{LDS}",
+   "18": "GND",
+   "19": "~{CARD}",
+   "20": "+5V"
+  },
+  "xy": [
+   124.46000000000001,
+   54.61
+  ],
+  "pos": [
+   0,
+   0
+  ],
+  "rot": 0,
+  "fp": "Package_DIP:DIP-20_W7.62mm_Socket_LongPads",
+  "uuid": "b4a29a0a-888a-5e7e-baad-b410b62e5b09"
+ },
+ {
+  "ref": "D2",
+  "key": "Device:D_Schottky",
+  "value": "BAT85",
+  "nets": {
+   "1": "~{CARD}",
+   "2": "~{DTACK}"
+  },
+  "xy": [
+   124.46000000000001,
+   105.41
+  ],
+  "pos": [
+   0,
+   0
+  ],
+  "rot": 0,
+  "fp": "Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal",
+  "uuid": "1c62e4df-0492-5d0c-9f8e-b3de31c790c1"
+ },
+ {
+  "ref": "U2",
+  "key": "74xx:74HCT238",
+  "value": "74HCT238",
+  "nets": {
+   "1": "A1",
+   "2": "A2",
+   "3": "A3",
+   "4": "~{CARD}",
+   "5": "RWB",
+   "6": "+5V",
+   "7": null,
+   "8": "GND",
+   "9": null,
+   "10": null,
+   "11": "WR_D",
+   "12": "WR_C",
+   "13": "WR_DIR",
+   "14": "WR_B",
+   "15": "WR_A",
+   "16": "+5V"
+  },
+  "xy": [
+   124.46000000000001,
+   149.86
+  ],
+  "pos": [
+   0,
+   0
+  ],
+  "rot": 0,
+  "fp": "Package_DIP:DIP-16_W7.62mm_Socket_LongPads",
+  "uuid": "d44372a6-c08e-5d1a-b248-0981a73923e9"
+ },
+ {
+  "ref": "U3",
+  "key": "74xx:74HCT138",
+  "value": "74HCT138",
+  "nets": {
+   "1": "A1",
+   "2": "A2",
+   "3": "A3",
+   "4": "~{CARD}",
+   "5": "GND",
+   "6": "RWB",
+   "7": null,
+   "8": "GND",
+   "9": null,
+   "10": null,
+   "11": "~{RD_D}",
+   "12": "~{RD_C}",
+   "13": null,
+   "14": "~{RD_B}",
+   "15": "~{RD_A}",
+   "16": "+5V"
+  },
+  "xy": [
+   124.46000000000001,
+   209.55
+  ],
+  "pos": [
+   0,
+   0
+  ],
+  "rot": 0,
+  "fp": "Package_DIP:DIP-16_W7.62mm_Socket_LongPads",
+  "uuid": "961d6a03-a2c4-5cb8-a7ec-81a39b835b68"
+ },
+ {
+  "ref": "U4",
+  "key": "74xx:74LS175",
+  "value": "74HCT175",
+  "nets": {
+   "1": "~{RESET}",
+   "2": null,
+   "3": "~{OE_A}",
+   "4": "D0",
+   "5": "D1",
+   "6": "~{OE_B}",
+   "7": null,
+   "8": "GND",
+   "9": "WR_DIR",
+   "10": null,
+   "11": "~{OE_C}",
+   "12": "D2",
+   "13": "D3",
+   "14": "~{OE_D}",
+   "15": null,
+   "16": "+5V"
+  },
+  "xy": [
+   124.46000000000001,
+   270.51
+  ],
+  "pos": [
+   0,
+   0
+  ],
+  "rot": 0,
+  "fp": "Package_DIP:DIP-16_W7.62mm_Socket_LongPads",
+  "uuid": "56ae946c-6ffb-5787-9b69-5f9b2339963f"
+ },
+ {
+  "ref": "U5",
+  "key": "74xx:74HCT574",
+  "value": "74HCT574",
+  "nets": {
+   "1": "~{OE_A}",
+   "2": "D0",
+   "3": "D1",
+   "4": "D2",
+   "5": "D3",
+   "6": "D4",
+   "7": "D5",
+   "8": "D6",
+   "9": "D7",
+   "10": "GND",
+   "11": "WR_A",
+   "12": "PA7",
+   "13": "PA6",
+   "14": "PA5",
+   "15": "PA4",
+   "16": "PA3",
+   "17": "PA2",
+   "18": "PA1",
+   "19": "PA0",
+   "20": "+5V"
+  },
+  "xy": [
+   204.47,
+   54.61
+  ],
+  "pos": [
+   0,
+   0
+  ],
+  "rot": 0,
+  "fp": "Package_DIP:DIP-20_W7.62mm_Socket_LongPads",
+  "uuid": "52e20266-a91a-58c8-b5cb-f68e2ee3e52c"
+ },
+ {
+  "ref": "U6",
+  "key": "74xx:74HCT541",
+  "value": "74HCT541",
+  "nets": {
+   "1": "~{RD_A}",
+   "2": "PA0",
+   "3": "PA1",
+   "4": "PA2",
+   "5": "PA3",
+   "6": "PA4",
+   "7": "PA5",
+   "8": "PA6",
+   "9": "PA7",
+   "10": "GND",
+   "11": "D7",
+   "12": "D6",
+   "13": "D5",
+   "14": "D4",
+   "15": "D3",
+   "16": "D2",
+   "17": "D1",
+   "18": "D0",
+   "19": "GND",
+   "20": "+5V"
+  },
+  "xy": [
+   284.48,
+   54.61
+  ],
+  "pos": [
+   0,
+   0
+  ],
+  "rot": 0,
+  "fp": "Package_DIP:DIP-20_W7.62mm_Socket_LongPads",
+  "uuid": "f6995a9d-6fae-5410-b133-81d1971f99f1"
+ },
+ {
+  "ref": "RN1",
+  "key": "Device:R_Network08",
+  "value": "8x10k",
+  "nets": {
+   "1": "+5V",
+   "2": "PA0",
+   "3": "PA1",
+   "4": "PA2",
+   "5": "PA3",
+   "6": "PA4",
+   "7": "PA5",
+   "8": "PA6",
+   "9": "PA7"
+  },
+  "xy": [
+   345.44,
+   250.19
+  ],
+  "pos": [
+   0,
+   0
+  ],
+  "rot": 0,
+  "fp": "Resistor_THT:R_Array_SIP9",
+  "uuid": "25b5935d-e48f-5d28-a7f2-cba2b8ce92d5"
+ },
+ {
+  "ref": "U7",
+  "key": "74xx:74HCT574",
+  "value": "74HCT574",
+  "nets": {
+   "1": "~{OE_B}",
+   "2": "D0",
+   "3": "D1",
+   "4": "D2",
+   "5": "D3",
+   "6": "D4",
+   "7": "D5",
+   "8": "D6",
+   "9": "D7",
+   "10": "GND",
+   "11": "WR_B",
+   "12": "PB7",
+   "13": "PB6",
+   "14": "PB5",
+   "15": "PB4",
+   "16": "PB3",
+   "17": "PB2",
+   "18": "PB1",
+   "19": "PB0",
+   "20": "+5V"
+  },
+  "xy": [
+   204.47,
+   124.46000000000001
+  ],
+  "pos": [
+   0,
+   0
+  ],
+  "rot": 0,
+  "fp": "Package_DIP:DIP-20_W7.62mm_Socket_LongPads",
+  "uuid": "415f637a-9b86-5f8f-99a6-1a7f1fdc160e"
+ },
+ {
+  "ref": "U8",
+  "key": "74xx:74HCT541",
+  "value": "74HCT541",
+  "nets": {
+   "1": "~{RD_B}",
+   "2": "PB0",
+   "3": "PB1",
+   "4": "PB2",
+   "5": "PB3",
+   "6": "PB4",
+   "7": "PB5",
+   "8": "PB6",
+   "9": "PB7",
+   "10": "GND",
+   "11": "D7",
+   "12": "D6",
+   "13": "D5",
+   "14": "D4",
+   "15": "D3",
+   "16": "D2",
+   "17": "D1",
+   "18": "D0",
+   "19": "GND",
+   "20": "+5V"
+  },
+  "xy": [
+   284.48,
+   124.46000000000001
+  ],
+  "pos": [
+   0,
+   0
+  ],
+  "rot": 0,
+  "fp": "Package_DIP:DIP-20_W7.62mm_Socket_LongPads",
+  "uuid": "dfdc652e-8a32-5f75-b57d-5bd01f1ea162"
+ },
+ {
+  "ref": "RN2",
+  "key": "Device:R_Network08",
+  "value": "8x10k",
+  "nets": {
+   "1": "+5V",
+   "2": "PB0",
+   "3": "PB1",
+   "4": "PB2",
+   "5": "PB3",
+   "6": "PB4",
+   "7": "PB5",
+   "8": "PB6",
+   "9": "PB7"
+  },
+  "xy": [
+   369.57,
+   250.19
+  ],
+  "pos": [
+   0,
+   0
+  ],
+  "rot": 0,
+  "fp": "Resistor_THT:R_Array_SIP9",
+  "uuid": "c188557f-79e6-57a2-9d04-cd2208ec1204"
+ },
+ {
+  "ref": "U9",
+  "key": "74xx:74HCT574",
+  "value": "74HCT574",
+  "nets": {
+   "1": "~{OE_C}",
+   "2": "D0",
+   "3": "D1",
+   "4": "D2",
+   "5": "D3",
+   "6": "D4",
+   "7": "D5",
+   "8": "D6",
+   "9": "D7",
+   "10": "GND",
+   "11": "WR_C",
+   "12": "PC7",
+   "13": "PC6",
+   "14": "PC5",
+   "15": "PC4",
+   "16": "PC3",
+   "17": "PC2",
+   "18": "PC1",
+   "19": "PC0",
+   "20": "+5V"
+  },
+  "xy": [
+   204.47,
+   195.58
+  ],
+  "pos": [
+   0,
+   0
+  ],
+  "rot": 0,
+  "fp": "Package_DIP:DIP-20_W7.62mm_Socket_LongPads",
+  "uuid": "9a0b941a-fe97-51e0-838d-9f2942c0f172"
+ },
+ {
+  "ref": "U10",
+  "key": "74xx:74HCT541",
+  "value": "74HCT541",
+  "nets": {
+   "1": "~{RD_C}",
+   "2": "PC0",
+   "3": "PC1",
+   "4": "PC2",
+   "5": "PC3",
+   "6": "PC4",
+   "7": "PC5",
+   "8": "PC6",
+   "9": "PC7",
+   "10": "GND",
+   "11": "D7",
+   "12": "D6",
+   "13": "D5",
+   "14": "D4",
+   "15": "D3",
+   "16": "D2",
+   "17": "D1",
+   "18": "D0",
+   "19": "GND",
+   "20": "+5V"
+  },
+  "xy": [
+   284.48,
+   195.58
+  ],
+  "pos": [
+   0,
+   0
+  ],
+  "rot": 0,
+  "fp": "Package_DIP:DIP-20_W7.62mm_Socket_LongPads",
+  "uuid": "82a30490-5f37-56af-80f0-9debec68b68f"
+ },
+ {
+  "ref": "RN3",
+  "key": "Device:R_Network08",
+  "value": "8x10k",
+  "nets": {
+   "1": "+5V",
+   "2": "PC0",
+   "3": "PC1",
+   "4": "PC2",
+   "5": "PC3",
+   "6": "PC4",
+   "7": "PC5",
+   "8": "PC6",
+   "9": "PC7"
+  },
+  "xy": [
+   394.97,
+   250.19
+  ],
+  "pos": [
+   0,
+   0
+  ],
+  "rot": 0,
+  "fp": "Resistor_THT:R_Array_SIP9",
+  "uuid": "cf836387-4f6d-54eb-a3e2-eb9ae4b5c086"
+ },
+ {
+  "ref": "U11",
+  "key": "74xx:74HCT574",
+  "value": "74HCT574",
+  "nets": {
+   "1": "~{OE_D}",
+   "2": "D0",
+   "3": "D1",
+   "4": "D2",
+   "5": "D3",
+   "6": "D4",
+   "7": "D5",
+   "8": "D6",
+   "9": "D7",
+   "10": "GND",
+   "11": "WR_D",
+   "12": "PD7",
+   "13": "PD6",
+   "14": "PD5",
+   "15": "PD4",
+   "16": "PD3",
+   "17": "PD2",
+   "18": "PD1",
+   "19": "PD0",
+   "20": "+5V"
+  },
+  "xy": [
+   204.47,
+   265.43
+  ],
+  "pos": [
+   0,
+   0
+  ],
+  "rot": 0,
+  "fp": "Package_DIP:DIP-20_W7.62mm_Socket_LongPads",
+  "uuid": "64809420-0e62-53cd-9d29-30d6aaf8781a"
+ },
+ {
+  "ref": "U12",
+  "key": "74xx:74HCT541",
+  "value": "74HCT541",
+  "nets": {
+   "1": "~{RD_D}",
+   "2": "PD0",
+   "3": "PD1",
+   "4": "PD2",
+   "5": "PD3",
+   "6": "PD4",
+   "7": "PD5",
+   "8": "PD6",
+   "9": "PD7",
+   "10": "GND",
+   "11": "D7",
+   "12": "D6",
+   "13": "D5",
+   "14": "D4",
+   "15": "D3",
+   "16": "D2",
+   "17": "D1",
+   "18": "D0",
+   "19": "GND",
+   "20": "+5V"
+  },
+  "xy": [
+   284.48,
+   265.43
+  ],
+  "pos": [
+   0,
+   0
+  ],
+  "rot": 0,
+  "fp": "Package_DIP:DIP-20_W7.62mm_Socket_LongPads",
+  "uuid": "4279a884-614c-5244-9e8b-89c115b4e76c"
+ },
+ {
+  "ref": "RN4",
+  "key": "Device:R_Network08",
+  "value": "8x10k",
+  "nets": {
+   "1": "+5V",
+   "2": "PD0",
+   "3": "PD1",
+   "4": "PD2",
+   "5": "PD3",
+   "6": "PD4",
+   "7": "PD5",
+   "8": "PD6",
+   "9": "PD7"
+  },
+  "xy": [
+   420.37,
+   250.19
+  ],
+  "pos": [
+   0,
+   0
+  ],
+  "rot": 0,
+  "fp": "Resistor_THT:R_Array_SIP9",
+  "uuid": "6272739f-c754-56eb-98c6-90429c50635e"
+ },
+ {
+  "ref": "J2",
+  "key": "Connector_Generic:Conn_02x10_Odd_Even",
+  "value": "16 GPIO 5V A/B",
+  "nets": {
+   "1": "PA0",
+   "2": "PA1",
+   "3": "PA2",
+   "4": "PA3",
+   "5": "PA4",
+   "6": "PA5",
+   "7": "PA6",
+   "8": "PA7",
+   "9": "PB0",
+   "10": "PB1",
+   "11": "PB2",
+   "12": "PB3",
+   "13": "PB4",
+   "14": "PB5",
+   "15": "PB6",
+   "16": "PB7",
+   "17": "GND",
+   "18": "+5V",
+   "19": "GND",
+   "20": "GND"
+  },
+  "xy": [
+   384.81,
+   69.85
+  ],
+  "pos": [
+   0,
+   0
+  ],
+  "rot": 0,
+  "fp": "Connector_IDC:IDC-Header_2x10_P2.54mm_Horizontal",
+  "uuid": "cb98948b-3d8f-5358-9789-6ea901ecaa69"
+ },
+ {
+  "ref": "J3",
+  "key": "Connector_Generic:Conn_02x10_Odd_Even",
+  "value": "16 GPIO 5V C/D",
+  "nets": {
+   "1": "PC0",
+   "2": "PC1",
+   "3": "PC2",
+   "4": "PC3",
+   "5": "PC4",
+   "6": "PC5",
+   "7": "PC6",
+   "8": "PC7",
+   "9": "PD0",
+   "10": "PD1",
+   "11": "PD2",
+   "12": "PD3",
+   "13": "PD4",
+   "14": "PD5",
+   "15": "PD6",
+   "16": "PD7",
+   "17": "GND",
+   "18": "+5V",
+   "19": "GND",
+   "20": "GND"
+  },
+  "xy": [
+   384.81,
+   160.02
+  ],
+  "pos": [
+   0,
+   0
+  ],
+  "rot": 0,
+  "fp": "Connector_IDC:IDC-Header_2x10_P2.54mm_Horizontal",
+  "uuid": "07cb3c5c-9523-583d-a2d5-31c674812a2a"
+ },
+ {
+  "ref": "C1",
+  "key": "Device:C",
+  "value": "100nF",
+  "nets": {
+   "1": "+5V",
+   "2": "GND"
+  },
+  "xy": [
+   44.45,
+   340.36
+  ],
+  "pos": [
+   0,
+   0
+  ],
+  "rot": 0,
+  "fp": "Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P2.50mm",
+  "uuid": "d3b603c0-5421-58a7-809a-e18cace299b0"
+ },
+ {
+  "ref": "C2",
+  "key": "Device:C",
+  "value": "100nF",
+  "nets": {
+   "1": "+5V",
+   "2": "GND"
+  },
+  "xy": [
+   63.5,
+   340.36
+  ],
+  "pos": [
+   0,
+   0
+  ],
+  "rot": 0,
+  "fp": "Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P2.50mm",
+  "uuid": "5a09db03-5865-55b5-84b1-1f68b9377ee6"
+ },
+ {
+  "ref": "C3",
+  "key": "Device:C",
+  "value": "100nF",
+  "nets": {
+   "1": "+5V",
+   "2": "GND"
+  },
+  "xy": [
+   82.55,
+   340.36
+  ],
+  "pos": [
+   0,
+   0
+  ],
+  "rot": 0,
+  "fp": "Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P2.50mm",
+  "uuid": "7f9fa1f8-aa61-54db-9603-675646d34fd8"
+ },
+ {
+  "ref": "C4",
+  "key": "Device:C",
+  "value": "100nF",
+  "nets": {
+   "1": "+5V",
+   "2": "GND"
+  },
+  "xy": [
+   101.6,
+   340.36
+  ],
+  "pos": [
+   0,
+   0
+  ],
+  "rot": 0,
+  "fp": "Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P2.50mm",
+  "uuid": "daa4cc58-2ed0-5bef-8c67-e688c2461666"
+ },
+ {
+  "ref": "C5",
+  "key": "Device:C",
+  "value": "100nF",
+  "nets": {
+   "1": "+5V",
+   "2": "GND"
+  },
+  "xy": [
+   120.65,
+   340.36
+  ],
+  "pos": [
+   0,
+   0
+  ],
+  "rot": 0,
+  "fp": "Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P2.50mm",
+  "uuid": "c6cd1883-26ef-54a8-8a32-57fb47a3bec4"
+ },
+ {
+  "ref": "C6",
+  "key": "Device:C",
+  "value": "100nF",
+  "nets": {
+   "1": "+5V",
+   "2": "GND"
+  },
+  "xy": [
+   139.7,
+   340.36
+  ],
+  "pos": [
+   0,
+   0
+  ],
+  "rot": 0,
+  "fp": "Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P2.50mm",
+  "uuid": "cc7c67a6-75d3-5581-afab-21b0074e0f4d"
+ },
+ {
+  "ref": "C7",
+  "key": "Device:C",
+  "value": "100nF",
+  "nets": {
+   "1": "+5V",
+   "2": "GND"
+  },
+  "xy": [
+   158.75,
+   340.36
+  ],
+  "pos": [
+   0,
+   0
+  ],
+  "rot": 0,
+  "fp": "Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P2.50mm",
+  "uuid": "d6aad8d4-cd80-5045-bc97-fdcd38f76038"
+ },
+ {
+  "ref": "C8",
+  "key": "Device:C",
+  "value": "100nF",
+  "nets": {
+   "1": "+5V",
+   "2": "GND"
+  },
+  "xy": [
+   177.8,
+   340.36
+  ],
+  "pos": [
+   0,
+   0
+  ],
+  "rot": 0,
+  "fp": "Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P2.50mm",
+  "uuid": "658eb5c7-8d94-5d88-abf2-f3652b99727d"
+ },
+ {
+  "ref": "C9",
+  "key": "Device:C",
+  "value": "100nF",
+  "nets": {
+   "1": "+5V",
+   "2": "GND"
+  },
+  "xy": [
+   196.85,
+   340.36
+  ],
+  "pos": [
+   0,
+   0
+  ],
+  "rot": 0,
+  "fp": "Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P2.50mm",
+  "uuid": "512e9c96-f605-5883-afca-765630339cfb"
+ },
+ {
+  "ref": "C10",
+  "key": "Device:C",
+  "value": "100nF",
+  "nets": {
+   "1": "+5V",
+   "2": "GND"
+  },
+  "xy": [
+   215.9,
+   340.36
+  ],
+  "pos": [
+   0,
+   0
+  ],
+  "rot": 0,
+  "fp": "Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P2.50mm",
+  "uuid": "ac21580e-b0de-53fc-bc39-2d69a83a2523"
+ },
+ {
+  "ref": "C11",
+  "key": "Device:C",
+  "value": "100nF",
+  "nets": {
+   "1": "+5V",
+   "2": "GND"
+  },
+  "xy": [
+   234.95000000000002,
+   340.36
+  ],
+  "pos": [
+   0,
+   0
+  ],
+  "rot": 0,
+  "fp": "Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P2.50mm",
+  "uuid": "3d3c72f0-11b2-53a1-9f18-c7b0b9593ffd"
+ },
+ {
+  "ref": "C12",
+  "key": "Device:C",
+  "value": "100nF",
+  "nets": {
+   "1": "+5V",
+   "2": "GND"
+  },
+  "xy": [
+   254.0,
+   340.36
+  ],
+  "pos": [
+   0,
+   0
+  ],
+  "rot": 0,
+  "fp": "Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P2.50mm",
+  "uuid": "a19e63cb-72cd-5044-b416-191904f31a90"
+ },
+ {
+  "ref": "C13",
+  "key": "Device:C_Polarized",
+  "value": "47uF 10V",
+  "nets": {
+   "1": "+5V",
+   "2": "GND"
+  },
+  "xy": [
+   44.45,
+   364.49
+  ],
+  "pos": [
+   0,
+   0
+  ],
+  "rot": 0,
+  "fp": "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm",
+  "uuid": "340b806d-8dcb-5d6d-b558-6fcd115d840b"
+ },
+ {
+  "ref": "R1",
+  "key": "Device:R",
+  "value": "1k",
+  "nets": {
+   "1": "+5V",
+   "2": "LED_A"
+  },
+  "xy": [
+   69.85,
+   364.49
+  ],
+  "pos": [
+   0,
+   0
+  ],
+  "rot": 0,
+  "fp": "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal",
+  "uuid": "614cb9f0-4d9d-504b-acef-7d1bfe43a4ee"
+ },
+ {
+  "ref": "D1",
+  "key": "Device:LED",
+  "value": "LED 3mm",
+  "nets": {
+   "2": "LED_A",
+   "1": "GND"
+  },
+  "xy": [
+   95.25,
+   364.49
+  ],
+  "pos": [
+   0,
+   0
+  ],
+  "rot": 0,
+  "fp": "LED_THT:LED_D3.0mm",
+  "uuid": "f261d777-6ea4-5b04-8966-b4c0a6ac6381"
+ },
+ {
+  "ref": "#FLG01",
+  "key": "power:PWR_FLAG",
+  "value": "PWR_FLAG",
+  "nets": {
+   "1": "+5V"
+  },
+  "xy": [
+   124.46000000000001,
+   359.41
+  ],
+  "pos": [
+   0,
+   0
+  ],
+  "rot": 0,
+  "fp": "",
+  "uuid": "d3ee6005-0fab-57fc-ba58-79e1e0216153"
+ },
+ {
+  "ref": "#FLG02",
+  "key": "power:PWR_FLAG",
+  "value": "PWR_FLAG",
+  "nets": {
+   "1": "GND"
+  },
+  "xy": [
+   144.78,
+   359.41
+  ],
+  "pos": [
+   0,
+   0
+  ],
+  "rot": 0,
+  "fp": "",
+  "uuid": "08323012-492d-56b5-a587-d57d45724bc1"
+ }
+]

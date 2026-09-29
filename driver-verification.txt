@@ -1,0 +1,1 @@
+PASS: real C driver, 32 pins, 172 register writes

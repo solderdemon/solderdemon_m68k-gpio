@@ -1,0 +1,36 @@
+﻿Reference,Value,Footprint
+J1,SOLDERDEMON M68K BUS,solderdemon_m68k-gpio:PinSocket_2x32_P2.54mm_Horizontal_CardEdge
+U1,74HCT688,Package_DIP:DIP-20_W7.62mm_Socket_LongPads
+D2,BAT85,Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal
+U2,74HCT238,Package_DIP:DIP-16_W7.62mm_Socket_LongPads
+U3,74HCT138,Package_DIP:DIP-16_W7.62mm_Socket_LongPads
+U4,74HCT175,Package_DIP:DIP-16_W7.62mm_Socket_LongPads
+U5,74HCT574,Package_DIP:DIP-20_W7.62mm_Socket_LongPads
+U6,74HCT541,Package_DIP:DIP-20_W7.62mm_Socket_LongPads
+RN1,8x10k,Resistor_THT:R_Array_SIP9
+U7,74HCT574,Package_DIP:DIP-20_W7.62mm_Socket_LongPads
+U8,74HCT541,Package_DIP:DIP-20_W7.62mm_Socket_LongPads
+RN2,8x10k,Resistor_THT:R_Array_SIP9
+U9,74HCT574,Package_DIP:DIP-20_W7.62mm_Socket_LongPads
+U10,74HCT541,Package_DIP:DIP-20_W7.62mm_Socket_LongPads
+RN3,8x10k,Resistor_THT:R_Array_SIP9
+U11,74HCT574,Package_DIP:DIP-20_W7.62mm_Socket_LongPads
+U12,74HCT541,Package_DIP:DIP-20_W7.62mm_Socket_LongPads
+RN4,8x10k,Resistor_THT:R_Array_SIP9
+J2,16 GPIO 5V A/B,Connector_IDC:IDC-Header_2x10_P2.54mm_Horizontal
+J3,16 GPIO 5V C/D,Connector_IDC:IDC-Header_2x10_P2.54mm_Horizontal
+C1,100nF,Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P2.50mm
+C2,100nF,Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P2.50mm
+C3,100nF,Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P2.50mm
+C4,100nF,Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P2.50mm
+C5,100nF,Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P2.50mm
+C6,100nF,Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P2.50mm
+C7,100nF,Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P2.50mm
+C8,100nF,Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P2.50mm
+C9,100nF,Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P2.50mm
+C10,100nF,Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P2.50mm
+C11,100nF,Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P2.50mm
+C12,100nF,Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P2.50mm
+C13,47uF 10V,Capacitor_THT:CP_Radial_D6.3mm_P2.50mm
+R1,1k,Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal
+D1,LED 3mm,LED_THT:LED_D3.0mm
