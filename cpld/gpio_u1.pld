@@ -1,0 +1,112 @@
+Name     SolderDemonM68KGPIO;
+PartNo   ATF1504AS;
+Date     2026-10-13;
+Revision r2;
+Designer SolderDemon;
+Company  SolderDemon;
+Assembly SolderDemon m68k GPIO;
+Location U1;
+Device   F1504ISPPLCC84;
+
+/* 5 V only. JTAG remains enabled for in-circuit programming. */
+PROPERTY ATMEL {JTAG = ON};
+PROPERTY ATMEL {TDI_PULLUP = ON};
+PROPERTY ATMEL {TMS_PULLUP = ON};
+PROPERTY ATMEL {PREASSIGN = KEEP};
+
+/* Dedicated inputs. */
+PIN 1  = RESET_N;
+PIN 2  = IOSEL_N;
+PIN 83 = LDS_N;
+PIN 84 = RW;
+
+/* Four 8-bit GPIO ports. The pad feedback is used for reads. */
+PIN [22,21,20,18,17,16,15,12] = [PA0..7];
+PIN [11,10,9,8,6,5,4,41] = [PB0..7];
+PIN [40,39,37,36,35,34,33,31] = [PC0..7];
+PIN [30,29,28,27,25,24,54,55] = [PD0..7];
+
+/* CPU data bus. Only driven during a selected read. */
+PIN [44,45,46,48,49,50,51,52] = [D0..7];
+
+/* Decoded address inputs; A20..A23 are qualified by the backplane IOSEL. */
+PIN [65,67,68,69,70,73,74] = [A13..19];
+PIN [75,76,77] = [A1..3];
+PIN 79 = CARD_N;
+
+PINNODE = [DIR_A,DIR_B,DIR_C,DIR_D];
+
+/* $F40000-$F41FFF, lower data strobe only. */
+SEL = !IOSEL_N & !LDS_N & !A19 & A18 & !A17 & !A16 & !A15 & !A14 & !A13;
+CARD_N = !SEL;
+
+WR_A   = SEL & !RW & !A3 & !A2 & !A1;
+WR_B   = SEL & !RW & !A3 & !A2 &  A1;
+WR_DIR = SEL & !RW & !A3 &  A2 & !A1;
+WR_C   = SEL & !RW & !A3 &  A2 &  A1;
+WR_D   = SEL & !RW &  A3 & !A2 & !A1;
+RD_A   = SEL &  RW & !A3 & !A2 & !A1;
+RD_B   = SEL &  RW & !A3 & !A2 &  A1;
+RD_C   = SEL &  RW & !A3 &  A2 &  A1;
+RD_D   = SEL &  RW &  A3 & !A2 & !A1;
+
+/* Reset makes every port an input. Output latches intentionally retain their
+ * prior value until software writes them, as on the discrete board. */
+DIR_A.d = D0.io;
+DIR_B.d = D1.io;
+DIR_C.d = D2.io;
+DIR_D.d = D3.io;
+[DIR_A,DIR_B,DIR_C,DIR_D].ck = WR_DIR;
+[DIR_A,DIR_B,DIR_C,DIR_D].ar = !RESET_N;
+
+PA0.d = D0.io;
+PA1.d = D1.io;
+PA2.d = D2.io;
+PA3.d = D3.io;
+PA4.d = D4.io;
+PA5.d = D5.io;
+PA6.d = D6.io;
+PA7.d = D7.io;
+PB0.d = D0.io;
+PB1.d = D1.io;
+PB2.d = D2.io;
+PB3.d = D3.io;
+PB4.d = D4.io;
+PB5.d = D5.io;
+PB6.d = D6.io;
+PB7.d = D7.io;
+PC0.d = D0.io;
+PC1.d = D1.io;
+PC2.d = D2.io;
+PC3.d = D3.io;
+PC4.d = D4.io;
+PC5.d = D5.io;
+PC6.d = D6.io;
+PC7.d = D7.io;
+PD0.d = D0.io;
+PD1.d = D1.io;
+PD2.d = D2.io;
+PD3.d = D3.io;
+PD4.d = D4.io;
+PD5.d = D5.io;
+PD6.d = D6.io;
+PD7.d = D7.io;
+[PA0..7].ck = WR_A;
+[PB0..7].ck = WR_B;
+[PC0..7].ck = WR_C;
+[PD0..7].ck = WR_D;
+[PA0..7].oe = DIR_A;
+[PB0..7].oe = DIR_B;
+[PC0..7].oe = DIR_C;
+[PD0..7].oe = DIR_D;
+
+/* Bus readback senses the actual header pins, including external levels. */
+D0 = (RD_A & PA0.io) # (RD_B & PB0.io) # (RD_C & PC0.io) # (RD_D & PD0.io);
+D1 = (RD_A & PA1.io) # (RD_B & PB1.io) # (RD_C & PC1.io) # (RD_D & PD1.io);
+D2 = (RD_A & PA2.io) # (RD_B & PB2.io) # (RD_C & PC2.io) # (RD_D & PD2.io);
+D3 = (RD_A & PA3.io) # (RD_B & PB3.io) # (RD_C & PC3.io) # (RD_D & PD3.io);
+D4 = (RD_A & PA4.io) # (RD_B & PB4.io) # (RD_C & PC4.io) # (RD_D & PD4.io);
+D5 = (RD_A & PA5.io) # (RD_B & PB5.io) # (RD_C & PC5.io) # (RD_D & PD5.io);
+D6 = (RD_A & PA6.io) # (RD_B & PB6.io) # (RD_C & PC6.io) # (RD_D & PD6.io);
+D7 = (RD_A & PA7.io) # (RD_B & PB7.io) # (RD_C & PC7.io) # (RD_D & PD7.io);
+[D0..7].oe = RD_A # RD_B # RD_C # RD_D;

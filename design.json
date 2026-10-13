@@ -79,45 +79,109 @@
   ],
   "rot": 0,
   "fp": "solderdemon_m68k-gpio:PinSocket_2x32_P2.54mm_Horizontal_CardEdge",
-  "uuid": "5f02f873-b215-5627-80b7-812a7b9a1b63"
+  "uuid": "6a7b4814-462b-5697-8ad9-07dd1b77b7c3"
  },
  {
   "ref": "U1",
-  "key": "74xx:74HCT688",
-  "value": "74HCT688",
+  "key": "solderdemon_m68k-gpio:ATF1504AS_GPIO",
+  "value": "ATF1504AS-10JU84",
   "nets": {
-   "1": "~{IOSEL}",
-   "2": "A13",
-   "3": "GND",
-   "4": "A14",
-   "5": "GND",
-   "6": "A15",
+   "1": "~{RESET}",
+   "2": "~{IOSEL}",
+   "3": "+5V",
+   "4": "PB6",
+   "5": "PB5",
+   "6": "PB4",
    "7": "GND",
-   "8": "A16",
-   "9": "GND",
-   "10": "GND",
-   "11": "A17",
-   "12": "GND",
-   "13": "A18",
-   "14": "+5V",
-   "15": "A19",
-   "16": "GND",
-   "17": "~{LDS}",
-   "18": "GND",
-   "19": "~{CARD}",
-   "20": "+5V"
+   "8": "PB3",
+   "9": "PB2",
+   "10": "PB1",
+   "11": "PB0",
+   "12": "PA7",
+   "13": "+5V",
+   "14": "JTAG_TDI",
+   "15": "PA6",
+   "16": "PA5",
+   "17": "PA4",
+   "18": "PA3",
+   "19": "GND",
+   "20": "PA2",
+   "21": "PA1",
+   "22": "PA0",
+   "23": "JTAG_TMS",
+   "24": "PD5",
+   "25": "PD4",
+   "26": "+5V",
+   "27": "PD3",
+   "28": "PD2",
+   "29": "PD1",
+   "30": "PD0",
+   "31": "PC7",
+   "32": "GND",
+   "33": "PC6",
+   "34": "PC5",
+   "35": "PC4",
+   "36": "PC3",
+   "37": "PC2",
+   "38": "+5V",
+   "39": "PC1",
+   "40": "PC0",
+   "41": "PB7",
+   "42": "GND",
+   "43": "+5V",
+   "44": "D0",
+   "45": "D1",
+   "46": "D2",
+   "47": "GND",
+   "48": "D3",
+   "49": "D4",
+   "50": "D5",
+   "51": "D6",
+   "52": "D7",
+   "53": "+5V",
+   "54": "PD6",
+   "55": "PD7",
+   "56": null,
+   "57": null,
+   "58": null,
+   "59": "GND",
+   "60": null,
+   "61": null,
+   "62": "JTAG_TCK",
+   "63": null,
+   "64": null,
+   "65": "A13",
+   "66": "+5V",
+   "67": "A14",
+   "68": "A15",
+   "69": "A16",
+   "70": "A17",
+   "71": "JTAG_TDO",
+   "72": "GND",
+   "73": "A18",
+   "74": "A19",
+   "75": "A1",
+   "76": "A2",
+   "77": "A3",
+   "78": "+5V",
+   "79": "~{CARD}",
+   "80": null,
+   "81": null,
+   "82": "GND",
+   "83": "~{LDS}",
+   "84": "RWB"
   },
   "xy": [
-   124.46000000000001,
-   54.61
+   129.54,
+   149.86
   ],
   "pos": [
    0,
    0
   ],
   "rot": 0,
-  "fp": "Package_DIP:DIP-20_W7.62mm_Socket_LongPads",
-  "uuid": "b4a29a0a-888a-5e7e-baad-b410b62e5b09"
+  "fp": "Package_LCC:PLCC-84_THT-Socket",
+  "uuid": "7c42ce42-a682-5836-8b5f-9370d5f13a9b"
  },
  {
   "ref": "D2",
@@ -129,74 +193,6 @@
   },
   "xy": [
    124.46000000000001,
-   105.41
-  ],
-  "pos": [
-   0,
-   0
-  ],
-  "rot": 0,
-  "fp": "Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal",
-  "uuid": "1c62e4df-0492-5d0c-9f8e-b3de31c790c1"
- },
- {
-  "ref": "U2",
-  "key": "74xx:74HCT238",
-  "value": "74HCT238",
-  "nets": {
-   "1": "A1",
-   "2": "A2",
-   "3": "A3",
-   "4": "~{CARD}",
-   "5": "RWB",
-   "6": "+5V",
-   "7": null,
-   "8": "GND",
-   "9": null,
-   "10": null,
-   "11": "WR_D",
-   "12": "WR_C",
-   "13": "WR_DIR",
-   "14": "WR_B",
-   "15": "WR_A",
-   "16": "+5V"
-  },
-  "xy": [
-   124.46000000000001,
-   149.86
-  ],
-  "pos": [
-   0,
-   0
-  ],
-  "rot": 0,
-  "fp": "Package_DIP:DIP-16_W7.62mm_Socket_LongPads",
-  "uuid": "d44372a6-c08e-5d1a-b248-0981a73923e9"
- },
- {
-  "ref": "U3",
-  "key": "74xx:74HCT138",
-  "value": "74HCT138",
-  "nets": {
-   "1": "A1",
-   "2": "A2",
-   "3": "A3",
-   "4": "~{CARD}",
-   "5": "GND",
-   "6": "RWB",
-   "7": null,
-   "8": "GND",
-   "9": null,
-   "10": null,
-   "11": "~{RD_D}",
-   "12": "~{RD_C}",
-   "13": null,
-   "14": "~{RD_B}",
-   "15": "~{RD_A}",
-   "16": "+5V"
-  },
-  "xy": [
-   124.46000000000001,
    209.55
   ],
   "pos": [
@@ -204,118 +200,36 @@
    0
   ],
   "rot": 0,
-  "fp": "Package_DIP:DIP-16_W7.62mm_Socket_LongPads",
-  "uuid": "961d6a03-a2c4-5cb8-a7ec-81a39b835b68"
+  "fp": "Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal",
+  "uuid": "435dc71e-69fa-528d-a42c-ee75547ef6e6"
  },
  {
-  "ref": "U4",
-  "key": "74xx:74LS175",
-  "value": "74HCT175",
+  "ref": "J4",
+  "key": "Connector_Generic:Conn_02x05_Odd_Even",
+  "value": "JTAG 5V",
   "nets": {
-   "1": "~{RESET}",
-   "2": null,
-   "3": "~{OE_A}",
-   "4": "D0",
-   "5": "D1",
-   "6": "~{OE_B}",
+   "1": "JTAG_TCK",
+   "2": "GND",
+   "3": "JTAG_TDO",
+   "4": "+5V",
+   "5": "JTAG_TMS",
+   "6": null,
    "7": null,
-   "8": "GND",
-   "9": "WR_DIR",
-   "10": null,
-   "11": "~{OE_C}",
-   "12": "D2",
-   "13": "D3",
-   "14": "~{OE_D}",
-   "15": null,
-   "16": "+5V"
+   "8": null,
+   "9": "JTAG_TDI",
+   "10": "GND"
   },
   "xy": [
-   124.46000000000001,
-   270.51
+   255.27,
+   175.26
   ],
   "pos": [
    0,
    0
   ],
   "rot": 0,
-  "fp": "Package_DIP:DIP-16_W7.62mm_Socket_LongPads",
-  "uuid": "56ae946c-6ffb-5787-9b69-5f9b2339963f"
- },
- {
-  "ref": "U5",
-  "key": "74xx:74HCT574",
-  "value": "74HCT574",
-  "nets": {
-   "1": "~{OE_A}",
-   "2": "D0",
-   "3": "D1",
-   "4": "D2",
-   "5": "D3",
-   "6": "D4",
-   "7": "D5",
-   "8": "D6",
-   "9": "D7",
-   "10": "GND",
-   "11": "WR_A",
-   "12": "PA7",
-   "13": "PA6",
-   "14": "PA5",
-   "15": "PA4",
-   "16": "PA3",
-   "17": "PA2",
-   "18": "PA1",
-   "19": "PA0",
-   "20": "+5V"
-  },
-  "xy": [
-   204.47,
-   54.61
-  ],
-  "pos": [
-   0,
-   0
-  ],
-  "rot": 0,
-  "fp": "Package_DIP:DIP-20_W7.62mm_Socket_LongPads",
-  "uuid": "52e20266-a91a-58c8-b5cb-f68e2ee3e52c"
- },
- {
-  "ref": "U6",
-  "key": "74xx:74HCT541",
-  "value": "74HCT541",
-  "nets": {
-   "1": "~{RD_A}",
-   "2": "PA0",
-   "3": "PA1",
-   "4": "PA2",
-   "5": "PA3",
-   "6": "PA4",
-   "7": "PA5",
-   "8": "PA6",
-   "9": "PA7",
-   "10": "GND",
-   "11": "D7",
-   "12": "D6",
-   "13": "D5",
-   "14": "D4",
-   "15": "D3",
-   "16": "D2",
-   "17": "D1",
-   "18": "D0",
-   "19": "GND",
-   "20": "+5V"
-  },
-  "xy": [
-   284.48,
-   54.61
-  ],
-  "pos": [
-   0,
-   0
-  ],
-  "rot": 0,
-  "fp": "Package_DIP:DIP-20_W7.62mm_Socket_LongPads",
-  "uuid": "f6995a9d-6fae-5410-b133-81d1971f99f1"
+  "fp": "Connector_PinHeader_2.54mm:PinHeader_2x05_P2.54mm_Vertical",
+  "uuid": "f53d521e-a804-5db5-9f8c-4260d9fc2c4c"
  },
  {
   "ref": "RN1",
@@ -333,7 +247,7 @@
    "9": "PA7"
   },
   "xy": [
-   345.44,
+   340.36,
    250.19
   ],
   "pos": [
@@ -342,83 +256,7 @@
   ],
   "rot": 0,
   "fp": "Resistor_THT:R_Array_SIP9",
-  "uuid": "25b5935d-e48f-5d28-a7f2-cba2b8ce92d5"
- },
- {
-  "ref": "U7",
-  "key": "74xx:74HCT574",
-  "value": "74HCT574",
-  "nets": {
-   "1": "~{OE_B}",
-   "2": "D0",
-   "3": "D1",
-   "4": "D2",
-   "5": "D3",
-   "6": "D4",
-   "7": "D5",
-   "8": "D6",
-   "9": "D7",
-   "10": "GND",
-   "11": "WR_B",
-   "12": "PB7",
-   "13": "PB6",
-   "14": "PB5",
-   "15": "PB4",
-   "16": "PB3",
-   "17": "PB2",
-   "18": "PB1",
-   "19": "PB0",
-   "20": "+5V"
-  },
-  "xy": [
-   204.47,
-   124.46000000000001
-  ],
-  "pos": [
-   0,
-   0
-  ],
-  "rot": 0,
-  "fp": "Package_DIP:DIP-20_W7.62mm_Socket_LongPads",
-  "uuid": "415f637a-9b86-5f8f-99a6-1a7f1fdc160e"
- },
- {
-  "ref": "U8",
-  "key": "74xx:74HCT541",
-  "value": "74HCT541",
-  "nets": {
-   "1": "~{RD_B}",
-   "2": "PB0",
-   "3": "PB1",
-   "4": "PB2",
-   "5": "PB3",
-   "6": "PB4",
-   "7": "PB5",
-   "8": "PB6",
-   "9": "PB7",
-   "10": "GND",
-   "11": "D7",
-   "12": "D6",
-   "13": "D5",
-   "14": "D4",
-   "15": "D3",
-   "16": "D2",
-   "17": "D1",
-   "18": "D0",
-   "19": "GND",
-   "20": "+5V"
-  },
-  "xy": [
-   284.48,
-   124.46000000000001
-  ],
-  "pos": [
-   0,
-   0
-  ],
-  "rot": 0,
-  "fp": "Package_DIP:DIP-20_W7.62mm_Socket_LongPads",
-  "uuid": "dfdc652e-8a32-5f75-b57d-5bd01f1ea162"
+  "uuid": "53848a26-144c-54fa-9f4a-a9c7c145ce7e"
  },
  {
   "ref": "RN2",
@@ -436,7 +274,7 @@
    "9": "PB7"
   },
   "xy": [
-   369.57,
+   364.49,
    250.19
   ],
   "pos": [
@@ -445,83 +283,7 @@
   ],
   "rot": 0,
   "fp": "Resistor_THT:R_Array_SIP9",
-  "uuid": "c188557f-79e6-57a2-9d04-cd2208ec1204"
- },
- {
-  "ref": "U9",
-  "key": "74xx:74HCT574",
-  "value": "74HCT574",
-  "nets": {
-   "1": "~{OE_C}",
-   "2": "D0",
-   "3": "D1",
-   "4": "D2",
-   "5": "D3",
-   "6": "D4",
-   "7": "D5",
-   "8": "D6",
-   "9": "D7",
-   "10": "GND",
-   "11": "WR_C",
-   "12": "PC7",
-   "13": "PC6",
-   "14": "PC5",
-   "15": "PC4",
-   "16": "PC3",
-   "17": "PC2",
-   "18": "PC1",
-   "19": "PC0",
-   "20": "+5V"
-  },
-  "xy": [
-   204.47,
-   195.58
-  ],
-  "pos": [
-   0,
-   0
-  ],
-  "rot": 0,
-  "fp": "Package_DIP:DIP-20_W7.62mm_Socket_LongPads",
-  "uuid": "9a0b941a-fe97-51e0-838d-9f2942c0f172"
- },
- {
-  "ref": "U10",
-  "key": "74xx:74HCT541",
-  "value": "74HCT541",
-  "nets": {
-   "1": "~{RD_C}",
-   "2": "PC0",
-   "3": "PC1",
-   "4": "PC2",
-   "5": "PC3",
-   "6": "PC4",
-   "7": "PC5",
-   "8": "PC6",
-   "9": "PC7",
-   "10": "GND",
-   "11": "D7",
-   "12": "D6",
-   "13": "D5",
-   "14": "D4",
-   "15": "D3",
-   "16": "D2",
-   "17": "D1",
-   "18": "D0",
-   "19": "GND",
-   "20": "+5V"
-  },
-  "xy": [
-   284.48,
-   195.58
-  ],
-  "pos": [
-   0,
-   0
-  ],
-  "rot": 0,
-  "fp": "Package_DIP:DIP-20_W7.62mm_Socket_LongPads",
-  "uuid": "82a30490-5f37-56af-80f0-9debec68b68f"
+  "uuid": "f142c459-fb7c-5ddb-a6fc-b22d7b69122d"
  },
  {
   "ref": "RN3",
@@ -539,7 +301,7 @@
    "9": "PC7"
   },
   "xy": [
-   394.97,
+   389.89,
    250.19
   ],
   "pos": [
@@ -548,83 +310,7 @@
   ],
   "rot": 0,
   "fp": "Resistor_THT:R_Array_SIP9",
-  "uuid": "cf836387-4f6d-54eb-a3e2-eb9ae4b5c086"
- },
- {
-  "ref": "U11",
-  "key": "74xx:74HCT574",
-  "value": "74HCT574",
-  "nets": {
-   "1": "~{OE_D}",
-   "2": "D0",
-   "3": "D1",
-   "4": "D2",
-   "5": "D3",
-   "6": "D4",
-   "7": "D5",
-   "8": "D6",
-   "9": "D7",
-   "10": "GND",
-   "11": "WR_D",
-   "12": "PD7",
-   "13": "PD6",
-   "14": "PD5",
-   "15": "PD4",
-   "16": "PD3",
-   "17": "PD2",
-   "18": "PD1",
-   "19": "PD0",
-   "20": "+5V"
-  },
-  "xy": [
-   204.47,
-   265.43
-  ],
-  "pos": [
-   0,
-   0
-  ],
-  "rot": 0,
-  "fp": "Package_DIP:DIP-20_W7.62mm_Socket_LongPads",
-  "uuid": "64809420-0e62-53cd-9d29-30d6aaf8781a"
- },
- {
-  "ref": "U12",
-  "key": "74xx:74HCT541",
-  "value": "74HCT541",
-  "nets": {
-   "1": "~{RD_D}",
-   "2": "PD0",
-   "3": "PD1",
-   "4": "PD2",
-   "5": "PD3",
-   "6": "PD4",
-   "7": "PD5",
-   "8": "PD6",
-   "9": "PD7",
-   "10": "GND",
-   "11": "D7",
-   "12": "D6",
-   "13": "D5",
-   "14": "D4",
-   "15": "D3",
-   "16": "D2",
-   "17": "D1",
-   "18": "D0",
-   "19": "GND",
-   "20": "+5V"
-  },
-  "xy": [
-   284.48,
-   265.43
-  ],
-  "pos": [
-   0,
-   0
-  ],
-  "rot": 0,
-  "fp": "Package_DIP:DIP-20_W7.62mm_Socket_LongPads",
-  "uuid": "4279a884-614c-5244-9e8b-89c115b4e76c"
+  "uuid": "53439cd9-435a-585c-bf7a-7709d3d32cd0"
  },
  {
   "ref": "RN4",
@@ -642,7 +328,7 @@
    "9": "PD7"
   },
   "xy": [
-   420.37,
+   415.29,
    250.19
   ],
   "pos": [
@@ -651,7 +337,7 @@
   ],
   "rot": 0,
   "fp": "Resistor_THT:R_Array_SIP9",
-  "uuid": "6272739f-c754-56eb-98c6-90429c50635e"
+  "uuid": "b1093afd-c84d-585d-9883-50d43810baca"
  },
  {
   "ref": "J2",
@@ -689,7 +375,7 @@
   ],
   "rot": 0,
   "fp": "Connector_PinHeader_2.54mm:PinHeader_2x10_P2.54mm_Horizontal",
-  "uuid": "cb98948b-3d8f-5358-9789-6ea901ecaa69"
+  "uuid": "c886c2ed-a50a-5328-9dfb-dcd7dbb48fab"
  },
  {
   "ref": "J3",
@@ -727,7 +413,7 @@
   ],
   "rot": 0,
   "fp": "Connector_PinHeader_2.54mm:PinHeader_2x10_P2.54mm_Horizontal",
-  "uuid": "07cb3c5c-9523-583d-a2d5-31c674812a2a"
+  "uuid": "be423569-5767-5d8e-9621-1ff1fd9788da"
  },
  {
   "ref": "C1",
@@ -747,7 +433,7 @@
   ],
   "rot": 0,
   "fp": "Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P2.50mm",
-  "uuid": "d3b603c0-5421-58a7-809a-e18cace299b0"
+  "uuid": "3896aafb-6473-5d4b-afb3-519060730689"
  },
  {
   "ref": "C2",
@@ -767,7 +453,7 @@
   ],
   "rot": 0,
   "fp": "Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P2.50mm",
-  "uuid": "5a09db03-5865-55b5-84b1-1f68b9377ee6"
+  "uuid": "7c8299f2-5f26-5b91-982d-2bf040cd8ead"
  },
  {
   "ref": "C3",
@@ -787,7 +473,7 @@
   ],
   "rot": 0,
   "fp": "Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P2.50mm",
-  "uuid": "7f9fa1f8-aa61-54db-9603-675646d34fd8"
+  "uuid": "7fb1dd71-3b83-5e00-beb9-9b8ad39325d2"
  },
  {
   "ref": "C4",
@@ -807,7 +493,7 @@
   ],
   "rot": 0,
   "fp": "Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P2.50mm",
-  "uuid": "daa4cc58-2ed0-5bef-8c67-e688c2461666"
+  "uuid": "f185126e-42f8-51ff-8b6b-cf10affd22de"
  },
  {
   "ref": "C5",
@@ -827,7 +513,7 @@
   ],
   "rot": 0,
   "fp": "Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P2.50mm",
-  "uuid": "c6cd1883-26ef-54a8-8a32-57fb47a3bec4"
+  "uuid": "c45435c8-55f7-550b-bc01-0772f4e7efcb"
  },
  {
   "ref": "C6",
@@ -847,7 +533,7 @@
   ],
   "rot": 0,
   "fp": "Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P2.50mm",
-  "uuid": "cc7c67a6-75d3-5581-afab-21b0074e0f4d"
+  "uuid": "03997cdf-6f7c-5571-9d00-ea242ce14ec4"
  },
  {
   "ref": "C7",
@@ -867,7 +553,7 @@
   ],
   "rot": 0,
   "fp": "Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P2.50mm",
-  "uuid": "d6aad8d4-cd80-5045-bc97-fdcd38f76038"
+  "uuid": "70d6fd0f-d2b6-5c1c-8eaa-37422dae71fa"
  },
  {
   "ref": "C8",
@@ -887,90 +573,10 @@
   ],
   "rot": 0,
   "fp": "Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P2.50mm",
-  "uuid": "658eb5c7-8d94-5d88-abf2-f3652b99727d"
+  "uuid": "24a38464-7cbb-5c67-b686-03dd957300c7"
  },
  {
   "ref": "C9",
-  "key": "Device:C",
-  "value": "100nF",
-  "nets": {
-   "1": "+5V",
-   "2": "GND"
-  },
-  "xy": [
-   196.85,
-   340.36
-  ],
-  "pos": [
-   0,
-   0
-  ],
-  "rot": 0,
-  "fp": "Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P2.50mm",
-  "uuid": "512e9c96-f605-5883-afca-765630339cfb"
- },
- {
-  "ref": "C10",
-  "key": "Device:C",
-  "value": "100nF",
-  "nets": {
-   "1": "+5V",
-   "2": "GND"
-  },
-  "xy": [
-   215.9,
-   340.36
-  ],
-  "pos": [
-   0,
-   0
-  ],
-  "rot": 0,
-  "fp": "Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P2.50mm",
-  "uuid": "ac21580e-b0de-53fc-bc39-2d69a83a2523"
- },
- {
-  "ref": "C11",
-  "key": "Device:C",
-  "value": "100nF",
-  "nets": {
-   "1": "+5V",
-   "2": "GND"
-  },
-  "xy": [
-   234.95000000000002,
-   340.36
-  ],
-  "pos": [
-   0,
-   0
-  ],
-  "rot": 0,
-  "fp": "Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P2.50mm",
-  "uuid": "3d3c72f0-11b2-53a1-9f18-c7b0b9593ffd"
- },
- {
-  "ref": "C12",
-  "key": "Device:C",
-  "value": "100nF",
-  "nets": {
-   "1": "+5V",
-   "2": "GND"
-  },
-  "xy": [
-   254.0,
-   340.36
-  ],
-  "pos": [
-   0,
-   0
-  ],
-  "rot": 0,
-  "fp": "Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P2.50mm",
-  "uuid": "a19e63cb-72cd-5044-b416-191904f31a90"
- },
- {
-  "ref": "C13",
   "key": "Device:C_Polarized",
   "value": "47uF 10V",
   "nets": {
@@ -987,7 +593,7 @@
   ],
   "rot": 0,
   "fp": "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm",
-  "uuid": "340b806d-8dcb-5d6d-b558-6fcd115d840b"
+  "uuid": "a7d1b983-6313-5f03-9cf1-7949fd893acd"
  },
  {
   "ref": "#FLG01",
@@ -1006,7 +612,7 @@
   ],
   "rot": 0,
   "fp": "",
-  "uuid": "d3ee6005-0fab-57fc-ba58-79e1e0216153"
+  "uuid": "27f4a52d-6b75-5971-aa07-2b37a80830d6"
  },
  {
   "ref": "#FLG02",
@@ -1025,6 +631,6 @@
   ],
   "rot": 0,
   "fp": "",
-  "uuid": "08323012-492d-56b5-a587-d57d45724bc1"
+  "uuid": "aff1f006-a2b4-55e4-a81f-23630ebcd607"
  }
 ]
