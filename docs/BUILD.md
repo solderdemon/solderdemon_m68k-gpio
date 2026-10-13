@@ -31,7 +31,7 @@ clang -std=c99 -Wall -Wextra -DGPIO_HOST_TEST -Isoftware tests/test_driver.c sof
 
 `build_card.py` preserves `solderdemon_m68k-gpio.kicad_pro`; it holds the DRC rules: 0.2 mm minimum track, 0.2 mm clearance, 0.6/0.3 mm vias. Do not run the full build on the existing routed board unless a new routing run is intended.
 
-The r2 board is not ready for manufacturing until all three JEDECs have the specified pin assignments, the board is routed, and ERC/DRC and timing checks are clean. Existing files under `manufacturing/` and the old `solderdemon_m68k-gpio-*.png` renders are from r1.
+The r1 board is not ready for manufacturing until all three JEDECs have the specified pin assignments, the board is routed, and ERC/DRC and timing checks are clean. Existing files under `manufacturing/` and the old `solderdemon_m68k-gpio-*.png` renders are from the earlier 74HCT version.
 
 ## Manufacturing files
 

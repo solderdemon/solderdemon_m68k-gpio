@@ -1,4 +1,4 @@
-"""Generate r2 README and build/assembly/design docs from tools/docs_templates."""
+"""Generate r1 README and build/assembly/design docs from tools/docs_templates."""
 from pathlib import Path
 
 root = Path(__file__).resolve().parents[1]

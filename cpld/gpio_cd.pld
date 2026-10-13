@@ -1,7 +1,7 @@
 Name     SolderDemonGPIO_CD;
 PartNo   ATF1502AS;
 Date     2026-10-13;
-Revision r2;
+Revision r1;
 Designer SolderDemon;
 Company  SolderDemon;
 Assembly SolderDemon m68k GPIO;

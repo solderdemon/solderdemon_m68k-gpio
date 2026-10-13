@@ -1,4 +1,4 @@
-"""SolderDemon m68k GPIO r2: three 5 V PLCC-44 ATF1502AS devices."""
+"""SolderDemon m68k GPIO r1: three 5 V PLCC-44 ATF1502AS devices."""
 from pathlib import Path
 import re, subprocess, sys, xml.etree.ElementTree as ET
 import gpiolib as g
@@ -11,7 +11,7 @@ NAME = 'solderdemon_m68k-gpio'
 BASE = 0xF40000
 W, H = 110.0, 96.0
 
-d = g.Design(NAME, 'SolderDemon m68k GPIO / 32 x 5V, 3x ATF1502AS', 'r2', '2026-10-13', paper='A2', libname=NAME, ns='solderdemon-gpio-r2/')
+d = g.Design(NAME, 'SolderDemon m68k GPIO / 32 x 5V, 3x ATF1502AS', 'r1', '2026-10-13', paper='A2', libname=NAME, ns='solderdemon-gpio-r2/')  # ns seeds every UUID; changing it forces a re-route
 FP_PLCC = 'Package_LCC:PLCC-44_THT-Socket'
 FP_JTAG = 'Connector_PinHeader_2.54mm:PinHeader_2x05_P2.54mm_Vertical'
 FP_C = 'Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P2.50mm'
