@@ -1,25 +1,25 @@
-# SolderDemon m68k GPIO — 32 × 5 V, ATF1504AS
+# SolderDemon m68k GPIO — 32 × 5 V, ATF1502AS
 
-Expansion card for the SolderDemon m68k, compatible with rosco_m68k. It connects through J1 and provides **32 GPIO pins** at 5 V logic levels in four 8-bit ports on two right-angle 2×10 pin headers, J2 and J3. One 5 V ATF1504AS CPLD replaces the twelve 74HCT logic chips. The four 10 kΩ pull-up networks and DTACK diode remain. There is no 3.3 V rail.
+Expansion card for the SolderDemon m68k, compatible with rosco_m68k. It connects through J1 and provides **32 GPIO pins** at 5 V logic levels in four 8-bit ports on two right-angle 2×10 pin headers, J2 and J3. Three 5 V ATF1502AS CPLDs in the same 44-pin package as SolderDemon 6502 replace the twelve 74HCT logic chips. The four 10 kΩ pull-up networks and DTACK diode remain. There is no 3.3 V rail.
 
 J1 has the same pinout and signals as the rosco_m68k r2 expansion bus, so the card works in both systems.
 
-The r2 routing preview is [atf-r2-top.png](atf-r2-top.png). The older `solderdemon_m68k-gpio-*.png` renders still show r1.
+The r2 board preview is [atf-r2-top.png](atf-r2-top.png). The older `solderdemon_m68k-gpio-*.png` renders still show r1.
 
-**Status:** r2 ATF prototype in progress on branch `gpio-atf1504as-5v`. CUPL source and the new 105 × 96 mm schematic/placement are generated. The JEDEC has not been fitted because Docker Desktop is unavailable. Do not use the `manufacturing/` files on this branch for r2; they belong to the committed r1 board. No board has been manufactured yet.
+**Status:** r2 prototype on branch `gpio-atf1502as-5v`. Three CUPL sources fit successfully with locked pins and produce JEDEC files. The 110 × 96 mm board is routed and has clean ERC/DRC. Do not use the `manufacturing/` files on this branch for r2; they belong to the committed r1 board. No board has been manufactured yet.
 
 ## At a glance
 
 | | |
 |---|---|
 | Registers | `$F40001` A, `$F40003` B, `$F40005` direction, `$F40007` C, `$F40009` D; byte access only |
-| Logic | ATF1504AS-10JU84 in PLCC-84 socket, programmed via J4 JTAG; BAT85 diode for DTACK |
+| Logic | 3 × ATF1502AS-10JU44 in PLCC-44 sockets, programmed in one J4 JTAG chain; BAT85 diode for DTACK |
 | Ports | registered CPLD outputs, tristated by the direction register; readback senses the header pins |
 | Direction | per 8-pin port |
 | Pull-ups | 10 kΩ on every pin (4 × SIP-9 arrays) |
 | Power | 5 V from the bus |
-| Assembly | through-hole only, PLCC-84 socket, CPLD needs a JEDEC and JTAG programmer |
-| Size | 105 × 96 mm target, 2 layers |
+| Assembly | through-hole only, 3 × PLCC-44 sockets, CPLDs need JEDEC files and a JTAG programmer |
+| Size | 110 × 96 mm, 2 layers |
 
 
 ## J2 / J3 connectors
@@ -33,7 +33,7 @@ Two right-angle, unshrouded 2×10 pin headers, 2.54 mm pitch, in the original co
 | 17, 19, 20 | GND | GND |
 | 18 | +5V from the bus, no fuse | +5V from the bus, no fuse |
 
-All VCCINT and VCCIO pins of U1 connect to the bus +5 V rail. The CPLD's specified source drive is lower than that of the previous 74HCT574; size external loads to the ATF1504AS datasheet, with 4 mA source current at its guaranteed VOH test point. The unshrouded headers have no key; check cable orientation before connecting an adapter.
+All VCC pins of U1–U3 connect to the bus +5 V rail. The CPLD output drive differs from the previous 74HCT574; size external loads to the ATF1502AS datasheet. The unshrouded headers have no key; check cable orientation before connecting an adapter.
 
 ## Registers
 
@@ -70,12 +70,13 @@ For a PS/2 keyboard and mouse on J2 or J3, see the [GPIO PS/2 adapter](../solder
 |---|---|
 | `solderdemon_m68k-gpio.kicad_pro` / `.kicad_sch` / `.kicad_pcb` | KiCad 10 project |
 | `solderdemon_m68k-gpio.kicad_sym`, `solderdemon_m68k-gpio.pretty/` | local CPLD/bus symbols and J1 socket footprint |
-| `cpld/gpio_u1.pld`, `cpld/build.sh` | ATF1504AS logic, pinout and JEDEC build |
+| `cpld/gpio_decode.pld`, `gpio_ab.pld`, `gpio_cd.pld`, `build.sh` | ATF1502AS logic, pinouts and JEDEC builds |
 | `logo.png` | logo source; `tools/make_logo.py` turns it into `SolderDemon_Logo` (same generator and size as on the busboard) |
 | `manufacturing/` | r1 manufacturing files until r2 passes fitter and DRC |
 | `software/` | driver `gpio.c/.h`, example `main.c`, Makefile |
 | `tests/test_driver.c` | driver test against a model of the latches, direction register and pull-ups |
 | `tools/build_card.py`, `tools/make_bus_footprint.py`, `tools/make_logo.py`, `tools/route_card.py`, `tools/cleanup_dangling.py` | schematic/PCB generation, J1 footprint, routing, router clean-up |
+| `tools/cupl.py`, `tools/sim_card.py` | CUPL source interpreter and GPIO behavior checks |
 | [docs/DESIGN.md](docs/DESIGN.md) | how the card works: addressing, bus cycles, DTACK diode, levels, power |
 | [docs/BRINGUP.md](docs/BRINGUP.md) | assembly and first power-up |
 | [docs/BUILD.md](docs/BUILD.md) | regenerating the files |
@@ -87,5 +88,5 @@ Copyright © 2026 SolderDemon. The GPIO hardware and driver were authored by Myk
 ## Verification
 
 - r2 schematic ERC: 0 violations; schematic/PCB parity: 0 issues.
-- r2 routed DRC: 0 violations, 0 unconnected pads, 0 parity issues; 49 vias. CUPL fitter, pin lock, JEDEC and timing are pending. The r1 driver test models the register interface, but it does not verify the new CPLD fuse map.
+- All three CPLD sources fit successfully with locked pins and JEDEC output (decoder 11/32 macrocells, each port CPLD 27/32). CUPL source simulation passes address decode, writes, reset and pin readback. ERC: 0 violations. Routed DRC: 0 violations, 0 unconnected pads, 0 schematic parity issues; 94 vias. Timing and physical behavior remain to be verified. The r1 driver test models the register interface, but it does not verify the new CPLD fuse maps.
 - Physical board and /DTACK level on an oscilloscope remain unverified.

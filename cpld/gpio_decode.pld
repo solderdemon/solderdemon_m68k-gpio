@@ -1,0 +1,44 @@
+Name     SolderDemonGPIO_Decode;
+PartNo   ATF1502AS;
+Date     2026-10-13;
+Revision r2;
+Designer SolderDemon;
+Company  SolderDemon;
+Assembly SolderDemon m68k GPIO;
+Location U1;
+Device   F1502ISPPLCC44;
+
+PROPERTY ATMEL {JTAG = ON};
+PROPERTY ATMEL {TDI_PULLUP = ON};
+PROPERTY ATMEL {TMS_PULLUP = ON};
+PROPERTY ATMEL {PREASSIGN = KEEP};
+
+/* Same 44-pin ATF1502AS family/package as SolderDemon 6502. */
+PIN 1  = IOSEL_N;
+PIN 2  = RW;
+PIN 43 = LDS_N;
+PIN [17,18,19,20,21,24,25] = [A13..19];
+PIN [26,27,28] = [A1..3];
+
+PIN 4  = CARD_N;
+PIN 5  = WR_A;
+PIN 6  = WR_B;
+PIN 8  = WR_DIR;
+PIN 9  = WR_C;
+PIN 11 = WR_D;
+PIN 12 = RD_A;
+PIN 14 = RD_B;
+PIN 16 = RD_C;
+PIN 29 = RD_D;
+
+SEL = !IOSEL_N & !LDS_N & !A19 & A18 & !A17 & !A16 & !A15 & !A14 & !A13;
+CARD_N = !SEL;
+WR_A   = SEL & !RW & !A3 & !A2 & !A1;
+WR_B   = SEL & !RW & !A3 & !A2 &  A1;
+WR_DIR = SEL & !RW & !A3 &  A2 & !A1;
+WR_C   = SEL & !RW & !A3 &  A2 &  A1;
+WR_D   = SEL & !RW &  A3 & !A2 & !A1;
+RD_A   = SEL &  RW & !A3 & !A2 & !A1;
+RD_B   = SEL &  RW & !A3 & !A2 &  A1;
+RD_C   = SEL &  RW & !A3 &  A2 &  A1;
+RD_D   = SEL &  RW &  A3 & !A2 & !A1;

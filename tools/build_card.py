@@ -1,4 +1,4 @@
-"""SolderDemon m68k GPIO r2: 5 V ATF1504AS schematic and PCB generator."""
+"""SolderDemon m68k GPIO r2: three 5 V PLCC-44 ATF1502AS devices."""
 from pathlib import Path
 import re, subprocess, sys, xml.etree.ElementTree as ET
 import gpiolib as g
@@ -9,10 +9,10 @@ CLI = 'C:/Program Files/KiCad/10.0/bin/kicad-cli.exe'
 g.LIB = Path('C:/Program Files/KiCad/10.0/share/kicad')
 NAME = 'solderdemon_m68k-gpio'
 BASE = 0xF40000
-W, H = 105.0, 96.0
+W, H = 110.0, 96.0
 
-d = g.Design(NAME, 'SolderDemon m68k GPIO / 32 x 5V, ATF1504AS', 'r2', '2026-10-13', paper='A2', libname=NAME, ns='solderdemon-gpio-r2/')
-FP_PLCC = 'Package_LCC:PLCC-84_THT-Socket'
+d = g.Design(NAME, 'SolderDemon m68k GPIO / 32 x 5V, 3x ATF1502AS', 'r2', '2026-10-13', paper='A2', libname=NAME, ns='solderdemon-gpio-r2/')
+FP_PLCC = 'Package_LCC:PLCC-44_THT-Socket'
 FP_JTAG = 'Connector_PinHeader_2.54mm:PinHeader_2x05_P2.54mm_Vertical'
 FP_C = 'Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P2.50mm'
 FP_CP = 'Capacitor_THT:CP_Radial_D6.3mm_P2.50mm'
@@ -22,10 +22,10 @@ FP_BUS = NAME + ':PinSocket_2x32_P2.54mm_Horizontal_CardEdge'   # stock socket, 
 LOCAL_FP = ROOT / (NAME + '.pretty')
 FP_GPIO = 'Connector_PinHeader_2.54mm:PinHeader_2x10_P2.54mm_Horizontal'
 
-VCC_PINS = {3, 13, 26, 38, 43, 53, 66, 78}
-GND_PINS = {7, 19, 32, 42, 47, 59, 72, 82}
-JTAG_PINS = {14: 'TDI', 23: 'TMS', 62: 'TCK', 71: 'TDO'}
-DEDICATED_PINS = {1, 2, 83, 84}
+VCC_PINS = {3, 15, 23, 35}
+GND_PINS = {10, 22, 30, 42}
+JTAG_PINS = {7: 'TDI', 13: 'TMS', 32: 'TCK', 38: 'TDO'}
+DEDICATED_PINS = {1, 2, 43, 44}
 
 
 def named(key, m):
@@ -49,51 +49,60 @@ used = {'+5V', 'GND', '~{IOSEL}', '~{LDS}', '~{RESET}', '~{DTACK}', 'RWB', 'A1',
 k = d.custom('BUS_2x32', [(i, bus[i], 'passive') for i in range(1, 65, 2)], [(i, bus[i], 'passive') for i in range(2, 65, 2)], FP_BUS, ref='J')
 d.add('J1', k, 'SOLDERDEMON M68K BUS', {i: n if n in used else None for i, n in bus.items()}, (45, 105))
 
-# ---- U1: one 5 V ATF1504AS implements decode, direction, latches and readback ----
-# Pin assignments come from the CUPL source, so the PCB follows any fitter pin changes.
-src = (ROOT / 'cpld' / 'gpio_u1.pld').read_text(encoding='utf-8')
-src = re.sub(r'/\*.*?\*/', '', src, flags=re.S)
-pins = {}
-for numbers, names in re.findall(r'PIN\s+(\[[^;]+?\]|\d+)\s*=\s*(\[[^;]+?\]|[A-Za-z_]\w*)\s*;', src, re.I):
-    nums = [int(n) for n in numbers.strip('[]').split(',')]
-    names = names.strip('[]')
-    m = re.fullmatch(r'([A-Za-z_]+)(\d+)\.\.(\d+)', names)
-    labels = [f'{m.group(1)}{i}' for i in range(int(m.group(2)), int(m.group(3)) + 1)] if m else [names]
-    assert len(nums) == len(labels), (numbers, names)
-    for num, label in zip(nums, labels):
-        assert num not in pins, num
-        pins[num] = label
-assert not set(pins) & (VCC_PINS | GND_PINS | set(JTAG_PINS))
-assert set(DEDICATED_PINS) <= set(pins)
-
-def cpld_pin(p):
-    if p in VCC_PINS: return (p, 'VCC', 'power_in')
-    if p in GND_PINS: return (p, 'GND', 'power_in')
-    if p in JTAG_PINS: return (p, JTAG_PINS[p], 'bidirectional')
-    n = pins.get(p)
-    if n is None: return (p, f'NC{p}', 'no_connect')
-    if p in DEDICATED_PINS or n.startswith('A'): return (p, n, 'input')
-    return (p, n, 'tri_state' if n.startswith(('P', 'D')) else 'output')
-
-k = d.custom('ATF1504AS_GPIO', [cpld_pin(p) for p in range(1, 43)],
-             [cpld_pin(p) for p in range(84, 42, -1)], FP_PLCC, width=58.42)
+# ---- U1 decoder, U2 ports A/B, U3 ports C/D -------------------------------
+# CUPL pin declarations are the pinout source of truth for all three PLCC-44s.
 special = {'RESET_N': '~{RESET}', 'IOSEL_N': '~{IOSEL}', 'LDS_N': '~{LDS}',
            'RW': 'RWB', 'CARD_N': '~{CARD}'}
-cnets = {}
-for p in range(1, 85):
-    if p in VCC_PINS: cnets[p] = '+5V'
-    elif p in GND_PINS: cnets[p] = 'GND'
-    elif p in JTAG_PINS: cnets[p] = 'JTAG_' + JTAG_PINS[p]
-    else:
+jtag_chain = {'U1': ('JTAG_TDI', 'JTAG_LINK1'),
+              'U2': ('JTAG_LINK1', 'JTAG_LINK2'),
+              'U3': ('JTAG_LINK2', 'JTAG_TDO')}
+for index, (ref, source) in enumerate([('U1', 'gpio_decode'), ('U2', 'gpio_ab'), ('U3', 'gpio_cd')]):
+    src = (ROOT / 'cpld' / (source + '.pld')).read_text(encoding='utf-8')
+    src = re.sub(r'/\*.*?\*/', '', src, flags=re.S)
+    pins = {}
+    for numbers, names in re.findall(r'PIN\s+(\[[^;]+?\]|\d+)\s*=\s*(\[[^;]+?\]|[A-Za-z_]\w*)\s*;', src, re.I):
+        nums = [int(n) for n in numbers.strip('[]').split(',')]
+        names = names.strip('[]')
+        m = re.fullmatch(r'([A-Za-z_]+)(\d+)\.\.(\d+)', names)
+        labels = [f'{m.group(1)}{i}' for i in range(int(m.group(2)), int(m.group(3)) + 1)] if m else [names]
+        assert len(nums) == len(labels), (numbers, names)
+        for num, label in zip(nums, labels):
+            assert num not in pins, (source, num)
+            pins[num] = label
+    assert not set(pins) & (VCC_PINS | GND_PINS | set(JTAG_PINS))
+    assert len(pins) <= 32, (source, len(pins))
+    tri = {n for n in pins.values() if n.startswith(('P', 'D')) and n[1:2].isdigit() or n.startswith(('PA', 'PB', 'PC', 'PD'))}
+    def cpld_pin(p):
+        if p in VCC_PINS: return (p, 'VCC', 'power_in')
+        if p in GND_PINS: return (p, 'GND', 'power_in')
+        if p in JTAG_PINS: return (p, JTAG_PINS[p], 'bidirectional')
         n = pins.get(p)
-        cnets[p] = special.get(n, n) if n else None
-d.add('U1', k, 'ATF1504AS-10JU84', cnets, (130, 150))
+        if n is None: return (p, f'NC{p}', 'input' if p in DEDICATED_PINS else 'no_connect')
+        if n == 'CARD_N' or (ref == 'U1' and n.startswith(('WR_', 'RD_'))):
+            return (p, n, 'output')
+        if p in DEDICATED_PINS or n.startswith('A') or n.startswith(('WR_', 'RD_')):
+            return (p, n, 'input')
+        return (p, n, 'tri_state' if n in tri else 'output')
+    key = d.custom('ATF1502AS_' + source.upper(),
+                   [cpld_pin(p) for p in range(1, 23)],
+                   [cpld_pin(p) for p in range(44, 22, -1)], FP_PLCC, width=38.1)
+    cnets = {}
+    for p in range(1, 45):
+        if p in VCC_PINS: cnets[p] = '+5V'
+        elif p in GND_PINS: cnets[p] = 'GND'
+        elif p in JTAG_PINS:
+            n = JTAG_PINS[p]
+            cnets[p] = jtag_chain[ref][0 if n == 'TDI' else 1] if n in ('TDI', 'TDO') else 'JTAG_' + n
+        else:
+            n = pins.get(p)
+            cnets[p] = special.get(n, n) if n else ('GND' if p in DEDICATED_PINS else None)
+    d.add(ref, key, 'ATF1502AS-10JU44', cnets, (120, 60 + 100 * index))
 
-# D2 preserves the bus's diode-isolated active-low DTACK.
+# D2 keeps /DTACK diode-isolated from the motherboard's open-drain line.
 k = d.standard('Device', 'D_Schottky', FP_D)
 d.add('D2', k, 'BAT85', {1: '~{CARD}', 2: '~{DTACK}'}, (125, 210))
 
-# Atmel 10-pin JTAG header, powered only by the bus 5 V rail.
+# Three CPLDs form a single JTAG chain; J4 uses bus +5 V only.
 k = d.standard('Connector_Generic', 'Conn_02x05_Odd_Even', FP_JTAG)
 d.add('J4', k, 'JTAG 5V', {1: 'JTAG_TCK', 2: 'GND', 3: 'JTAG_TDO', 4: '+5V',
                           5: 'JTAG_TMS', 6: None, 7: None, 8: None,
@@ -115,9 +124,9 @@ for ref, lo, hi, y in [('J2', 'A', 'B', 70), ('J3', 'C', 'D', 160)]:
 # ---- power ---------------------------------------------------------------------
 C = d.standard('Device', 'C', FP_C); CP = d.standard('Device', 'C_Polarized', FP_CP)
 FLG = d.standard('power', 'PWR_FLAG', '')
-for i in range(1, 9):                                                          # eight CPLD supply pairs
+for i in range(1, 13):                                                         # four bypass caps per CPLD
     d.add(f'C{i}', C, '100nF', {1: '+5V', 2: 'GND'}, (45 + 19.05 * (i - 1), 340))
-d.add('C9', CP, '47uF 10V', {1: '+5V', 2: 'GND'}, (45, 365))
+d.add('C13', CP, '47uF 10V', {1: '+5V', 2: 'GND'}, (45, 365))
 d.add('#FLG01', FLG, 'PWR_FLAG', {1: '+5V'}, (125, 360))
 d.add('#FLG02', FLG, 'PWR_FLAG', {1: 'GND'}, (145, 360))
 
@@ -178,26 +187,26 @@ def column(rows, left, cap_x):
         place(cref, cap_x, y, 90); ref_at(cref, cap_x - 2.8, y, 90)
 
 
-# J1 retains its bus mating position on the right edge.
+# J1 and the two GPIO headers retain their mating positions at opposite edges.
 BX = W - 6.0
 place('J1', BX, 87.37, 180, pin1=True); ref_at('J1', BX + 1.27, 91.2)
 MID = H / 2
-place('U1', 65.0, MID, 0); ref_at('U1', 65.0, MID + 19.0)
-place('J4', 47.0, 10.0, 0); ref_at('J4', 55.0, 9.0)
-place('D2', 52.0, 80.0, 0); ref_at('D2', 52.0, 75.0)
-place('C9', 74.0, 80.0, 0); ref_at('C9', 74.0, 75.0)
-# Bypass parts surround U1 and remain close to the 84-pin socket.
-for i, (x, y) in enumerate([(45, 25), (55, 25), (75, 25), (86, 25),
-                             (45, 70), (55, 70), (75, 70), (86, 70)], 1):
-    place(f'C{i}', x, y, 90); ref_at(f'C{i}', x, y - 4.5)
+for ref, y in [('U1', 17.0), ('U2', 48.0), ('U3', 79.0)]:
+    place(ref, 65.0, y, 0); ref_at(ref, 65.0, y + 13.0)
+place('J4', 42.0, 48.0, 0); ref_at('J4', 41.0, 36.0)
+place('D2', 43.0, 12.0, 0); ref_at('D2', 43.0, 7.5)
+place('C13', 44.0, 83.0, 0); ref_at('C13', 44.0, 77.0)
+# Four 100 nF bypass capacitors flank each PLCC socket's power pins.
+for i, (x, y) in enumerate([(82, 6), (90, 12), (82, 22), (90, 28),
+                             (82, 37), (90, 43), (82, 53), (90, 59),
+                             (82, 68), (90, 74), (82, 84), (90, 90)], 1):
+    place(f'C{i}', x, y, 90); ref_at(f'C{i}', x, y - 3.8)
 
-# Keep the established two-header topology at the left edge.
 CONNECTOR_SHIFT = H / 2 - ((40.0 + 86.0) / 2 - 11.43)
 J_PIN1 = {'J2': 40.0 + CONNECTOR_SHIFT, 'J3': 86.0 + CONNECTOR_SHIFT}
 for jref in ('J2', 'J3'):
     y1 = J_PIN1[jref]
     place(jref, 16.5, y1, 180, pin1=True); ref_at(jref, 10.0, y1 - 26.0)
-# Four pull-up networks stay in one vertical column.
 for i in range(4):
     rn, y = f'RN{i + 1}', 12.35 + 23.75 * i
     place(rn, 28.0, y, 90); ref_at(rn, 32.2, y, 90)
@@ -238,8 +247,6 @@ for jref, (lo, hi) in {'J2': ('A', 'B'), 'J3': ('C', 'D')}.items():
         else:
             names = 'GND 5V' if row == 8 else 'GND GND'
         text(names, 20.5, y1 - row * 2.54, .8)
-text('SolderDemon GPIO r2', 48.0, 91.0, 1.2, bold=True)
-text('ATF1504AS  5V', 48.0, 93.0, .8)
 text('BUS', BX + 1.27, 5, 1.0, left=False)
 
 # No-connect pins get 'unconnected-(...)' nets in the schematic; copy nets and pin metadata onto the pads.

@@ -1,0 +1,61 @@
+Name     SolderDemonGPIO_CD;
+PartNo   ATF1502AS;
+Date     2026-10-13;
+Revision r2;
+Designer SolderDemon;
+Company  SolderDemon;
+Assembly SolderDemon m68k GPIO;
+Location U3;
+Device   F1502ISPPLCC44;
+
+PROPERTY ATMEL {JTAG = ON};
+PROPERTY ATMEL {TDI_PULLUP = ON};
+PROPERTY ATMEL {TMS_PULLUP = ON};
+PROPERTY ATMEL {PREASSIGN = KEEP};
+
+PIN 1  = RESET_N;
+PIN 2  = WR_C;
+PIN 43 = WR_D;
+PIN 44 = WR_DIR;
+PIN [4,5,6,8,9,11,12,14] = [PC0..7];
+PIN [16,17,18,19,20,21,24,25] = [PD0..7];
+PIN [26,27,28,29,31,33,34,36] = [D0..7];
+PIN 37 = RD_C;
+PIN 39 = RD_D;
+
+PINNODE = [DIR_C,DIR_D];
+DIR_C.d = D2.io;
+DIR_D.d = D3.io;
+[DIR_C,DIR_D].ck = WR_DIR;
+[DIR_C,DIR_D].ar = !RESET_N;
+
+PC0.d = D0.io;
+PC1.d = D1.io;
+PC2.d = D2.io;
+PC3.d = D3.io;
+PC4.d = D4.io;
+PC5.d = D5.io;
+PC6.d = D6.io;
+PC7.d = D7.io;
+PD0.d = D0.io;
+PD1.d = D1.io;
+PD2.d = D2.io;
+PD3.d = D3.io;
+PD4.d = D4.io;
+PD5.d = D5.io;
+PD6.d = D6.io;
+PD7.d = D7.io;
+[PC0..7].ck = WR_C;
+[PD0..7].ck = WR_D;
+[PC0..7].oe = DIR_C;
+[PD0..7].oe = DIR_D;
+
+D0 = (RD_C & PC0.io) # (RD_D & PD0.io);
+D1 = (RD_C & PC1.io) # (RD_D & PD1.io);
+D2 = (RD_C & PC2.io) # (RD_D & PD2.io);
+D3 = (RD_C & PC3.io) # (RD_D & PD3.io);
+D4 = (RD_C & PC4.io) # (RD_D & PD4.io);
+D5 = (RD_C & PC5.io) # (RD_D & PD5.io);
+D6 = (RD_C & PC6.io) # (RD_D & PD6.io);
+D7 = (RD_C & PC7.io) # (RD_D & PD7.io);
+[D0..7].oe = RD_C # RD_D;
