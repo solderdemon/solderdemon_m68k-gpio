@@ -1,6 +1,6 @@
 """SolderDemon m68k GPIO r1: schematic + PCB placement generator. Run with KiCad 10 python.
 
-Direct-mapped card, 32 GPIO at 5 V on two IDC headers, 12 stock 74HCT DIPs. 74HCT688
+Direct-mapped card, 32 GPIO at 5 V on two right-angle 2x10 pin headers, 12 stock 74HCT DIPs. 74HCT688
 decodes the card window qualified by /LDS; 74HCT238 makes write strobes and 74HCT138
 read enables. Each of the four ports is a 74HCT574 latch whose tri-state outputs drive
 the pins (direction per port from a 74HCT175) and a 74HCT541 that reads the pins back.
@@ -22,13 +22,11 @@ d = g.Design(NAME, 'SolderDemon m68k GPIO / 32 x 5V, 74HCT', 'r1', '2026-09-30',
 DIP = lambda n: f'Package_DIP:DIP-{n}_W7.62mm_Socket_LongPads'
 FP_C = 'Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P2.50mm'
 FP_CP = 'Capacitor_THT:CP_Radial_D6.3mm_P2.50mm'
-FP_R = 'Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal'
 FP_RN = 'Resistor_THT:R_Array_SIP9'
 FP_D = 'Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal'
-FP_LED = 'LED_THT:LED_D3.0mm'
 FP_BUS = NAME + ':PinSocket_2x32_P2.54mm_Horizontal_CardEdge'   # stock socket, silkscreen trimmed at the card edge
 LOCAL_FP = ROOT / (NAME + '.pretty')
-FP_IDC = 'Connector_IDC:IDC-Header_2x10_P2.54mm_Horizontal'
+FP_GPIO = 'Connector_PinHeader_2.54mm:PinHeader_2x10_P2.54mm_Horizontal'
 
 
 def named(key, m):
@@ -102,18 +100,19 @@ for i, p in enumerate(PORTS):
     d.add(f'U{6 + 2 * i}', L541, '74HCT541', named(L541, m), (285, y))
     d.add(f'RN{i + 1}', RN, '8x10k', {1: '+5V'} | {b + 2: f'P{p}{b}' for b in range(8)}, (345 + 25 * i, 250))
 
-IDC = d.standard('Connector_Generic', 'Conn_02x10_Odd_Even', FP_IDC)
-for jref, lo, hi, y, label in [('J2', 'A', 'B', 70, '16 GPIO 5V A/B'), ('J3', 'C', 'D', 160, '16 GPIO 5V C/D')]:
-    d.add(jref, IDC, label, {b + 1: f'P{lo}{b}' for b in range(8)} | {b + 9: f'P{hi}{b}' for b in range(8)} | {17: 'GND', 18: '+5V', 19: 'GND', 20: 'GND'}, (385, y))
+GPIO = d.standard('Connector_Generic', 'Conn_02x10_Odd_Even', FP_GPIO)
+for ref, lo, hi, y in [('J2', 'A', 'B', 70), ('J3', 'C', 'D', 160)]:
+    gpio_pins = {bit + 1: f'P{lo}{bit}' for bit in range(8)}
+    gpio_pins.update({bit + 9: f'P{hi}{bit}' for bit in range(8)})
+    gpio_pins.update({17: 'GND', 18: '+5V', 19: 'GND', 20: 'GND'})
+    d.add(ref, GPIO, f'16 GPIO 5V {lo}/{hi}', gpio_pins, (385, y))
 
 # ---- power ---------------------------------------------------------------------
-C = d.standard('Device', 'C', FP_C); CP = d.standard('Device', 'C_Polarized', FP_CP); R = d.standard('Device', 'R', FP_R)
-LED = d.standard('Device', 'LED', FP_LED); FLG = d.standard('power', 'PWR_FLAG', '')
+C = d.standard('Device', 'C', FP_C); CP = d.standard('Device', 'C_Polarized', FP_CP)
+FLG = d.standard('power', 'PWR_FLAG', '')
 for i in range(1, 13):                                                         # C1..C12 bypass U1..U12
     d.add(f'C{i}', C, '100nF', {1: '+5V', 2: 'GND'}, (45 + 19.05 * (i - 1), 340))
 d.add('C13', CP, '47uF 10V', {1: '+5V', 2: 'GND'}, (45, 365))
-d.add('R1', R, '1k', {1: '+5V', 2: 'LED_A'}, (70, 365))
-d.add('D1', LED, 'LED 3mm', {2: 'LED_A', 1: 'GND'}, (95, 365))
 d.add('#FLG01', FLG, 'PWR_FLAG', {1: '+5V'}, (125, 360))
 d.add('#FLG02', FLG, 'PWR_FLAG', {1: 'GND'}, (145, 360))
 
@@ -188,18 +187,18 @@ column([('U1', 'C1', ROW[0]), ('U2', 'C2', ROW[1]), ('U3', 'C3', ROW[2]), ('U4',
 RX = 126.5                                                           # centre of the right column
 place('D2', RX, MID - 4.5, 0); ref_at('D2', RX, MID - 6.4)
 place('C13', RX - 11.0, MID + 4.5, 0); ref_at('C13', RX - 11.0, MID + 0.1)
-place('R1', RX + 0.5, MID + 4.5, 0); ref_at('R1', RX + 0.5, MID + 2.5)
-place('D1', RX + 11.5, MID + 4.5, 0); ref_at('D1', RX + 11.5, MID + 1.3)
-# Left edge: J2 (A/B) above J3 (C/D), cables exit left. The two
-# connector bodies share a vertical centre at H/2; their pull-up pairs move
-# with them. A body centre is 11.43 mm above pad 1 in this orientation.
+# Left edge: keep the original J2/J3 locations, one above and one below the
+# centre line. Only the shrouded IDC sockets become simple bent pin headers.
 CONNECTOR_SHIFT = H / 2 - ((40.0 + 86.0) / 2 - 11.43)
 J_PIN1 = {'J2': 40.0 + CONNECTOR_SHIFT, 'J3': 86.0 + CONNECTOR_SHIFT}
-for jref, (lo, hi) in {'J2': ('A', 'B'), 'J3': ('C', 'D')}.items():
+for jref in ('J2', 'J3'):
     y1 = J_PIN1[jref]
-    place(jref, 16.5, y1, 180, pin1=True); ref_at(jref, 9.5, y1 - 26.0)
-for rn, x, y, ry in [('RN1', 28.0, 28.5, 14.8), ('RN2', 32.0, 28.5, 42.2), ('RN3', 28.0, 74.5, 60.8), ('RN4', 32.0, 74.5, 88.2)]:
-    place(rn, x, y + CONNECTOR_SHIFT, 90); ref_at(rn, x, ry + CONNECTOR_SHIFT)
+    place(jref, 16.5, y1, 180, pin1=True); ref_at(jref, 10.0, y1 - 26.0)
+# Four SIP-9 arrays fit end-to-end in one column (23.52 mm courtyards,
+# 23.75 mm centre spacing) between the board's top and bottom edges.
+for i in range(4):
+    rn, y = f'RN{i + 1}', 12.35 + 23.75 * i
+    place(rn, 28.0, y, 90); ref_at(rn, 32.2, y, 90)
 
 
 def seg(a, z, layer=pcb.F_SilkS, width=.15, shape=pcb.SHAPE_T_SEGMENT):
@@ -230,8 +229,13 @@ arc((r, H), (k45, H - k45), (0, H - r)); arc((0, r), (k45, k45), (r, 0))
 for jref, (lo, hi) in {'J2': ('A', 'B'), 'J3': ('C', 'D')}.items():
     y1 = J_PIN1[jref]
     for row in range(10):
-        names = f'{lo}{row * 2} {lo}{row * 2 + 1}' if row < 4 else f'{hi}{(row - 4) * 2} {hi}{(row - 4) * 2 + 1}' if row < 8 else 'GND 5V' if row == 8 else 'GND GND'
-        text(names, 19.2, y1 - row * 2.54, .8)
+        if row < 4:
+            names = f'{lo}{row * 2} {lo}{row * 2 + 1}'
+        elif row < 8:
+            names = f'{hi}{(row - 4) * 2} {hi}{(row - 4) * 2 + 1}'
+        else:
+            names = 'GND 5V' if row == 8 else 'GND GND'
+        text(names, 20.5, y1 - row * 2.54, .8)
 # SolderDemon identity as on solderdemon_m68k-busboard: the pixel logo with the name beside it,
 # centred in the band between the port A/B and C/D rows (left edge of U5 to C8).
 LX, LOGO_W, GAP, NAME_W = (37.0 + 105.3) / 2, 16.9, 2.0, 21.0

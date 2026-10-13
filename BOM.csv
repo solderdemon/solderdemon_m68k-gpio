@@ -17,8 +17,8 @@ RN3,8x10k,Resistor_THT:R_Array_SIP9
 U11,74HCT574,Package_DIP:DIP-20_W7.62mm_Socket_LongPads
 U12,74HCT541,Package_DIP:DIP-20_W7.62mm_Socket_LongPads
 RN4,8x10k,Resistor_THT:R_Array_SIP9
-J2,16 GPIO 5V A/B,Connector_IDC:IDC-Header_2x10_P2.54mm_Horizontal
-J3,16 GPIO 5V C/D,Connector_IDC:IDC-Header_2x10_P2.54mm_Horizontal
+J2,16 GPIO 5V A/B,Connector_PinHeader_2.54mm:PinHeader_2x10_P2.54mm_Horizontal
+J3,16 GPIO 5V C/D,Connector_PinHeader_2.54mm:PinHeader_2x10_P2.54mm_Horizontal
 C1,100nF,Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P2.50mm
 C2,100nF,Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P2.50mm
 C3,100nF,Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P2.50mm
@@ -32,5 +32,3 @@ C10,100nF,Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P2.50mm
 C11,100nF,Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P2.50mm
 C12,100nF,Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P2.50mm
 C13,47uF 10V,Capacitor_THT:CP_Radial_D6.3mm_P2.50mm
-R1,1k,Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal
-D1,LED 3mm,LED_THT:LED_D3.0mm

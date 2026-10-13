@@ -1,6 +1,6 @@
 # SolderDemon m68k GPIO — 32 × 5 V, plain 74HCT
 
-Expansion card for the SolderDemon m68k, compatible with rosco_m68k. It connects through J1 and provides **32 GPIO pins** at 5 V logic levels in four 8-bit ports on two IDC headers, J2 and J3. It uses twelve stock 74HCT chips in DIP packages: no port expanders, no programmable parts, no 3.3 V rail.
+Expansion card for the SolderDemon m68k, compatible with rosco_m68k. It connects through J1 and provides **32 GPIO pins** at 5 V logic levels in four 8-bit ports on two right-angle 2×10 pin headers, J2 and J3. It uses twelve stock 74HCT chips in DIP packages: no port expanders, no programmable parts, no 3.3 V rail.
 
 J1 has the same pinout and signals as the rosco_m68k r2 expansion bus, so the card works in both systems.
 
@@ -25,7 +25,7 @@ J1 has the same pinout and signals as the rosco_m68k r2 expansion bus, so the ca
 
 ## J2 / J3 connectors
 
-Right-angle shrouded IDC 2×10 headers, 2.54 mm pitch, J2 above J3. Pin 1 is marked with a triangle.
+Two right-angle, unshrouded 2×10 pin headers, 2.54 mm pitch, in the original connector positions on the left edge. J2 is above J3. Pin 1 is marked on the PCB.
 
 | Pins | J2 | J3 |
 |---|---|---|
@@ -34,7 +34,7 @@ Right-angle shrouded IDC 2×10 headers, 2.54 mm pitch, J2 above J3. Pin 1 is mar
 | 17, 19, 20 | GND | GND |
 | 18 | +5V from the bus, no fuse | +5V from the bus, no fuse |
 
-Keep the total load on pin 18 around 100 mA or less. Outputs swing to 5 V. HCT inputs accept 3.3 V logic, but a 3.3 V device must not be connected to a port configured as an output.
+Keep the total external 5 V load around 100 mA or less. Outputs swing to 5 V. HCT inputs accept 3.3 V logic, but a 3.3 V device must not be connected to a port configured as an output. The pinout matches the former IDC 2×10 connectors, but the unshrouded headers have no key; check cable orientation before connecting an adapter.
 
 ## Registers
 
@@ -88,8 +88,8 @@ Copyright © 2026 SolderDemon. The GPIO hardware and driver were authored by Myk
 
 - ERC: 0 errors, 0 warnings (`erc.rpt`).
 - DRC with schematic parity: 0 violations, 0 unconnected pads, 0 footprint errors (`drc.rpt`).
-- Placement: three IC columns on one four-row grid, symmetric about the board centre line; logo, DTACK diode and power parts in the centre band. J2/J3 body centres at y = 25/71 mm, centred as a pair on the 96 mm board; RN1/RN2 and RN3/RN4 follow their respective headers.
-- Routing: 1701 tracks and vias (77 vias), GND pour on both layers.
+- Placement: three IC columns on one four-row grid, symmetric about the board centre line; logo, DTACK diode and bulk capacitor in the centre band. J2 and J3 occupy their original upper and lower positions on the left edge; RN1–RN4 form one straight column beside them.
+- Routing: 1289 tracks and vias (88 vias), GND pour on both layers.
 - /DTACK: checked against the SolderDemon m68k address decoder (GAL and CPLD r2.14) — the output is open drain (`DTACK.E` / `DTACK.oe` only) with R21 1.2 kΩ pull-up, so the D2 diode wired-OR is valid. Worst-case low level ≈0.66 V vs VIL 0.8 V.
 - Driver: the real `gpio.c` against a model of four latches, the direction register and pull-ups, including self-test fault detection, output-glitch checks and single-port access — PASS (`driver-verification.txt`).
 - **Not yet verified:** a physical board, timing and the /DTACK low level on a scope, a build with the m68k cross-compiler.

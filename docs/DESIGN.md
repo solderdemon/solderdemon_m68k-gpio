@@ -72,15 +72,15 @@ Nominally everything is asynchronous and independent of the CPU clock. Actual se
 
 ## Power
 
-- C1..C12 are 100 nF next to each IC; C13 is 47 µF on the 5 V input. D1 with R1 (1 kΩ) is the power LED, about 3 mA.
-- J2.18 and J3.18 are the bus +5V directly, with no fuse. Keep the external load small (≈100 mA in total) and never short it.
-- Idle current of the logic is well under 1 mA plus the LED.
+- C1..C12 are 100 nF next to each IC; C13 is 47 µF on the 5 V input.
+- J2.18 and J3.18 are the bus +5V directly, with no fuse. Keep the external load small (≈100 mA in total) and never short it. Pins 17, 19 and 20 on both headers are GND.
+- Idle current of the logic is well under 1 mA.
 
 ## Mechanical
 
 - 153 × 96 mm, 2 layers, 1.6 mm FR-4, R3 corners.
 - J1 is a standard right-angle 2×32 socket, 2.54 mm pitch. The body overhangs the right edge, pin 1 at the bottom. It mates with the straight `pin-2X32` headers on the busboard (29.21 mm slot pitch).
-- J2 (ports A/B, upper) and J3 (ports C/D, lower) are right-angle IDC 2×10 headers with their bodies at the left edge, so the cables exit outwards. No component is taller than a DIP-20 socket with its IC.
+- J2 (ports A/B, upper) and J3 (ports C/D, lower) are right-angle, unshrouded 2×10 pin headers at the same left-edge positions as the former IDC connectors. Their pins face outward. Existing IDC adapters retain the same signal mapping, but the headers are unkeyed; check cable orientation.
 - No mounting holes: the card is held by the busboard socket.
 
 ## Changes from the MCP23S17 prototype (archived in `solderdemon_m68k-gpio-backups/r2-mcp23s17`)

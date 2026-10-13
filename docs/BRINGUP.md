@@ -2,10 +2,10 @@
 
 ## Assembly
 
-1. Low parts first: R1, C1–C12, D2 BAT85 (black ring = cathode, towards the square pad), D1 LED (flat side, square pad).
+1. Low parts first: C1–C12 and D2 BAT85 (black ring = cathode, towards the square pad).
 2. RN1–RN4: the dot (common pin 1) goes to the square pad.
 3. DIP-16/20 sockets, notch as shown on the silkscreen.
-4. C13 47 µF (negative lead away from the square pad), J2, J3.
+4. C13 47 µF (negative lead away from the square pad), then the right-angle J2 and J3 2×10 headers.
 5. J1 last: press the socket flat against the board, body overhanging the right edge.
 
 Do not insert the ICs yet.
@@ -16,7 +16,7 @@ Do not insert the ICs yet.
 |---|---|
 | Resistance +5V–GND (C13) | > 1 kΩ, no short |
 | D2 with a diode tester, red on J1.57 (/DTACK) | 0.2–0.4 V forward, open the other way |
-| Powered from the mainboard, J2.18 and J3.18 | 4.75–5.25 V, D1 lit |
+| Powered from the mainboard, J2.18 and J3.18 | 4.75–5.25 V |
 | Every J2/J3 signal pin (1–16) to GND | about 5 V through RN1–RN4 |
 | U1–U12 sockets, VCC pin | 5 V |
 

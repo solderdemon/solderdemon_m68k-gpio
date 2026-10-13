@@ -688,7 +688,7 @@
    0
   ],
   "rot": 0,
-  "fp": "Connector_IDC:IDC-Header_2x10_P2.54mm_Horizontal",
+  "fp": "Connector_PinHeader_2.54mm:PinHeader_2x10_P2.54mm_Horizontal",
   "uuid": "cb98948b-3d8f-5358-9789-6ea901ecaa69"
  },
  {
@@ -726,7 +726,7 @@
    0
   ],
   "rot": 0,
-  "fp": "Connector_IDC:IDC-Header_2x10_P2.54mm_Horizontal",
+  "fp": "Connector_PinHeader_2.54mm:PinHeader_2x10_P2.54mm_Horizontal",
   "uuid": "07cb3c5c-9523-583d-a2d5-31c674812a2a"
  },
  {
@@ -988,46 +988,6 @@
   "rot": 0,
   "fp": "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm",
   "uuid": "340b806d-8dcb-5d6d-b558-6fcd115d840b"
- },
- {
-  "ref": "R1",
-  "key": "Device:R",
-  "value": "1k",
-  "nets": {
-   "1": "+5V",
-   "2": "LED_A"
-  },
-  "xy": [
-   69.85,
-   364.49
-  ],
-  "pos": [
-   0,
-   0
-  ],
-  "rot": 0,
-  "fp": "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal",
-  "uuid": "614cb9f0-4d9d-504b-acef-7d1bfe43a4ee"
- },
- {
-  "ref": "D1",
-  "key": "Device:LED",
-  "value": "LED 3mm",
-  "nets": {
-   "2": "LED_A",
-   "1": "GND"
-  },
-  "xy": [
-   95.25,
-   364.49
-  ],
-  "pos": [
-   0,
-   0
-  ],
-  "rot": 0,
-  "fp": "LED_THT:LED_D3.0mm",
-  "uuid": "f261d777-6ea4-5b04-8966-b4c0a6ac6381"
  },
  {
   "ref": "#FLG01",
