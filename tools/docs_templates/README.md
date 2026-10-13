@@ -69,7 +69,7 @@ For a PS/2 keyboard and mouse on J2 or J3, see the [GPIO PS/2 adapter](../solder
 | Path | Contents |
 |---|---|
 | `solderdemon_m68k-gpio.kicad_pro` / `.kicad_sch` / `.kicad_pcb` | KiCad 10 project |
-| `solderdemon_m68k-gpio.kicad_sym`, `solderdemon_m68k-gpio.pretty/` | local CPLD/bus symbols and J1 socket footprint |
+| `solderdemon_m68k-gpio.kicad_sym`, `solderdemon_m68k-gpio.pretty/` | local CPLD/bus symbols, the J1 socket footprint and the SolderDemon logo |
 | `cpld/gpio_decode.pld`, `gpio_ab.pld`, `gpio_cd.pld`, `build.sh` | ATF1502AS logic, pinouts and JEDEC builds |
 | `logo.png` | logo source; `tools/make_logo.py` turns it into `SolderDemon_Logo` (same generator and size as on the busboard) |
 | `manufacturing/` | files of the earlier 74HCT version; not yet regenerated for r1 |
@@ -88,5 +88,5 @@ Copyright © 2026 SolderDemon. The GPIO hardware and driver were authored by Myk
 ## Verification
 
 - r1 schematic ERC: 0 violations; schematic/PCB parity: 0 issues.
-- All three CPLD sources fit successfully with locked pins and JEDEC output (decoder 11/32 macrocells, each port CPLD 27/32). CUPL source simulation passes address decode, writes, reset and pin readback. ERC: 0 violations. Routed DRC: 0 violations, 0 unconnected pads, 0 schematic parity issues; 94 vias. Timing and physical behavior remain to be verified. The driver test models the register interface, but it does not verify the new CPLD fuse maps.
+- All three CPLD sources fit successfully with locked pins and JEDEC output (decoder 11/32 macrocells, each port CPLD 27/32). CUPL source simulation passes address decode, writes, reset and pin readback. ERC: 0 violations. Routed DRC: 0 violations, 0 unconnected pads, 0 schematic parity issues; 123 vias. Timing and physical behavior remain to be verified. The driver test models the register interface, but it does not verify the new CPLD fuse maps.
 - Physical board and /DTACK level on an oscilloscope remain unverified.

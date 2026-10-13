@@ -195,7 +195,7 @@ for ref, y in [('U1', 17.0), ('U2', 48.0), ('U3', 79.0)]:
     place(ref, 65.0, y, 0); ref_at(ref, 65.0, y + 13.0)
 place('J4', 42.0, 48.0, 0); ref_at('J4', 41.0, 36.0)
 place('D2', 43.0, 12.0, 0); ref_at('D2', 43.0, 7.5)
-place('C13', 44.0, 83.0, 0); ref_at('C13', 44.0, 77.0)
+place('C13', 44.0, 86.5, 0); ref_at('C13', 38.0, 86.5, 90)
 # Four 100 nF bypass capacitors flank each PLCC socket's power pins.
 for i, (x, y) in enumerate([(82, 6), (90, 12), (82, 22), (90, 28),
                              (82, 37), (90, 43), (82, 53), (90, 59),
@@ -248,6 +248,23 @@ for jref, (lo, hi) in {'J2': ('A', 'B'), 'J3': ('C', 'D')}.items():
             names = 'GND 5V' if row == 8 else 'GND GND'
         text(names, 20.5, y1 - row * 2.54, .8)
 text('BUS', BX + 1.27, 5, 1.0, left=False)
+
+# SolderDemon identity as on solderdemon_m68k-ramboard: the pixel logo with the name under it,
+# in the column between the resistor arrays and the CPLDs, below J4.
+LX = 44.0
+logo = pcb.FootprintLoad(str(LOCAL_FP), 'SolderDemon_Logo'); logo.SetFPID(pcb.LIB_ID(NAME, 'SolderDemon_Logo'))
+logo.SetReference('LOGO1'); logo.SetPosition(v(LX, 65.5)); b.Add(logo)
+text('SolderDemon', LX, 76.6, 1.5, left=False, bold=True)
+text('GPIO Card r1', LX, 78.7, 1.0, left=False)
+text(f'32 x 5V   ${BASE + 1:06X}', LX, 80.4, .8, left=False)
+# Register map on the back, behind the logo (mirrored text, centred on the column).
+for i, line in enumerate(['GPIO REGISTERS', 'byte access only',
+                          f'${BASE + 1:06X} A   ${BASE + 3:06X} B', f'${BASE + 7:06X} C   ${BASE + 9:06X} D',
+                          'write = outputs, read = pins',
+                          f'${BASE + 5:06X} DIR, write only', 'b0..b3 = A..D, 1 = output', 'after reset: all inputs', '',
+                          f'{NAME} r1', 'October 2026', 'Copyright ©2026 SolderDemon']):
+    if line: text(line, LX, 58.0 + i * 1.65, .8, pcb.B_SilkS, left=False, bold=i == 0)
+title = b.GetTitleBlock(); title.SetTitle(d.title); title.SetDate(d.date); title.SetRevision(d.rev); title.SetCompany('SolderDemon')
 
 # No-connect pins get 'unconnected-(...)' nets in the schematic; copy nets and pin metadata onto the pads.
 netlist = ROOT / 'netlist.xml'
