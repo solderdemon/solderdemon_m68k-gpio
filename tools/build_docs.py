@@ -6,6 +6,7 @@ src = Path(__file__).with_name('docs_templates')
 for name, target in [('README.md', root / 'README.md'),
                      ('BUILD.md', root / 'docs' / 'BUILD.md'),
                      ('DESIGN.md', root / 'docs' / 'DESIGN.md'),
-                     ('BRINGUP.md', root / 'docs' / 'BRINGUP.md')]:
+                     ('BRINGUP.md', root / 'docs' / 'BRINGUP.md'),
+                     ('TIMING.md', root / 'docs' / 'TIMING.md')]:
     target.write_bytes((src / name).read_bytes())
     print('Generated', target.relative_to(root))

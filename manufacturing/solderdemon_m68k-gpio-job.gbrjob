@@ -5,16 +5,16 @@
       "Application": "Pcbnew",
       "Version": "10.0.1"
     },
-    "CreationDate": "2026-10-13T18:54:54+03:00"
+    "CreationDate": "2026-10-13T20:03:46+03:00"
   },
   "GeneralSpecs": {
     "ProjectId": {
       "Name": "solderdemon_m68k-gpio",
       "GUID": "736f6c64-6572-4646-956d-6f6e5f6d3638",
-      "Revision": "rev?"
+      "Revision": "r1"
     },
     "Size": {
-      "X": 153.05,
+      "X": 110.05,
       "Y": 96.05
     },
     "LayerNumber": 2,

@@ -4,9 +4,9 @@ Expansion card for the SolderDemon m68k, compatible with rosco_m68k. It connects
 
 J1 has the same pinout and signals as the rosco_m68k r2 expansion bus, so the card works in both systems.
 
-The r1 board preview is [atf-r1-top.png](atf-r1-top.png). The older `solderdemon_m68k-gpio-*.png` renders show the earlier 74HCT version.
+Board renders: [top](solderdemon_m68k-gpio-top.png), [bottom](solderdemon_m68k-gpio-bottom.png), [3D](solderdemon_m68k-gpio-3d.png).
 
-**Status:** r1 prototype on branch `gpio-atf1502as-5v`. Three CUPL sources fit successfully with locked pins and produce JEDEC files. The 110 × 96 mm board is routed and has clean ERC/DRC. Do not use the `manufacturing/` files on this branch; they belong to the earlier 74HCT version. No board has been manufactured yet.
+**Status:** r1 on branch `gpio-atf1502as-5v`, ready to order. Three CUPL sources fit with locked pins and produce JEDEC files; the 110 × 96 mm board is routed with clean ERC/DRC; worst-case bus timing at 10 MHz is checked in [docs/TIMING.md](docs/TIMING.md); `manufacturing/` holds the r1 fabrication files. No board has been built yet.
 
 ## At a glance
 
@@ -72,12 +72,13 @@ For a PS/2 keyboard and mouse on J2 or J3, see the [GPIO PS/2 adapter](../solder
 | `solderdemon_m68k-gpio.kicad_sym`, `solderdemon_m68k-gpio.pretty/` | local CPLD/bus symbols, the J1 socket footprint and the SolderDemon logo |
 | `cpld/gpio_decode.pld`, `gpio_ab.pld`, `gpio_cd.pld`, `build.sh` | ATF1502AS logic, pinouts and JEDEC builds |
 | `logo.png` | logo source; `tools/make_logo.py` turns it into `SolderDemon_Logo` (same generator and size as on the busboard) |
-| `manufacturing/` | files of the earlier 74HCT version; not yet regenerated for r1 |
+| `manufacturing/` | r1 Gerbers, drill, fab zip, pos, BOM and schematic PDF |
 | `software/` | driver `gpio.c/.h`, example `main.c`, Makefile |
 | `tests/test_driver.c` | driver test against a model of the latches, direction register and pull-ups |
 | `tools/build_card.py`, `tools/make_bus_footprint.py`, `tools/make_logo.py`, `tools/route_card.py`, `tools/cleanup_dangling.py` | schematic/PCB generation, J1 footprint, routing, router clean-up |
 | `tools/cupl.py`, `tools/sim_card.py` | CUPL source interpreter and GPIO behavior checks |
 | [docs/DESIGN.md](docs/DESIGN.md) | how the card works: addressing, bus cycles, DTACK diode, levels, power |
+| [docs/TIMING.md](docs/TIMING.md) | worst-case bus timing against the MC68010 at 10 MHz, /DTACK level |
 | [docs/BRINGUP.md](docs/BRINGUP.md) | assembly and first power-up |
 | [docs/BUILD.md](docs/BUILD.md) | regenerating the files |
 
@@ -88,5 +89,5 @@ Copyright © 2026 SolderDemon. The GPIO hardware and driver were authored by Myk
 ## Verification
 
 - r1 schematic ERC: 0 violations; schematic/PCB parity: 0 issues.
-- All three CPLD sources fit successfully with locked pins and JEDEC output (decoder 11/32 macrocells, each port CPLD 27/32). CUPL source simulation passes address decode, writes, reset and pin readback. ERC: 0 violations. Routed DRC: 0 violations, 0 unconnected pads, 0 schematic parity issues; 123 vias. Timing and physical behavior remain to be verified. The driver test models the register interface, but it does not verify the new CPLD fuse maps.
+- All three CPLD sources fit successfully with locked pins and JEDEC output (decoder 11/32 macrocells, each port CPLD 27/32). CUPL source simulation passes address decode, writes, reset and pin readback. ERC: 0 violations. Routed DRC: 0 violations, 0 unconnected pads, 0 schematic parity issues; 123 vias. Worst-case timing at 10 MHz: reads with zero wait states (/DTACK margin 75 ns, data margin 167 ns), writes with at most one; see docs/TIMING.md. The driver test models the register interface, but it does not verify the new CPLD fuse maps.
 - Physical board and /DTACK level on an oscilloscope remain unverified.

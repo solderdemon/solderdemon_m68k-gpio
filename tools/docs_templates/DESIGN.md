@@ -18,4 +18,4 @@ Three 5 V ATF1502AS-10JU44 CPLDs in PLCC-44 sockets replace the twelve 74HCT ICs
 
 The two right-angle 2×10 GPIO headers keep the pinout of the 74HCT version: J2 carries A/B and J3 carries C/D. Pins 17, 19 and 20 are GND; pin 18 is +5 V. RN1–RN4 remain one straight column beside them. The SolderDemon logo and card name sit between RN3/RN4 and U2/U3, below J4; the back carries the register map behind them.
 
-All three CUPL sources fit with pin assignments kept and emit JEDEC files. The routed board passes KiCad ERC/DRC with schematic parity. Timing and physical behavior still require final verification before manufacturing. Check output current against the ATF1502AS datasheet rather than assuming the previous 74HCT574 limits.
+All three CUPL sources fit with pin assignments kept and emit JEDEC files. The routed board passes KiCad ERC/DRC with schematic parity. Worst-case bus timing is worked out in [TIMING.md](TIMING.md). Check output current against the ATF1502AS datasheet rather than assuming the previous 74HCT574 limits.
