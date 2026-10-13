@@ -6,7 +6,7 @@ J1 has the same pinout and signals as the rosco_m68k r2 expansion bus, so the ca
 
 Board renders: [top](solderdemon_m68k-gpio-top.png), [bottom](solderdemon_m68k-gpio-bottom.png), [3D](solderdemon_m68k-gpio-3d.png).
 
-**Status:** r1 on branch `gpio-atf1502as-5v`, ready to order. Three CUPL sources fit with locked pins and produce JEDEC files; the 110 × 96 mm board is routed with clean ERC/DRC; worst-case bus timing at 10 MHz is checked in [docs/TIMING.md](docs/TIMING.md); `manufacturing/` holds the r1 fabrication files. No board has been built yet.
+**Status:** r1 on branch `gpio-atf1502as-5v`, ready to order. Three CUPL sources fit with locked pins and produce JEDEC files; the 86 × 96 mm board is routed with clean ERC/DRC; worst-case bus timing at 10 MHz is checked in [docs/TIMING.md](docs/TIMING.md); `manufacturing/` holds the r1 fabrication files. No board has been built yet.
 
 ## At a glance
 
@@ -19,7 +19,7 @@ Board renders: [top](solderdemon_m68k-gpio-top.png), [bottom](solderdemon_m68k-g
 | Pull-ups | 10 kΩ on every pin (4 × SIP-9 arrays) |
 | Power | 5 V from the bus |
 | Assembly | through-hole only, 3 × PLCC-44 sockets, CPLDs need JEDEC files and a JTAG programmer |
-| Size | 110 × 96 mm, 2 layers |
+| Size | 86 × 96 mm, 2 layers |
 
 
 ## J2 / J3 connectors

@@ -9,7 +9,7 @@ CLI = 'C:/Program Files/KiCad/10.0/bin/kicad-cli.exe'
 g.LIB = Path('C:/Program Files/KiCad/10.0/share/kicad')
 NAME = 'solderdemon_m68k-gpio'
 BASE = 0xF40000
-W, H = 110.0, 96.0
+W, H = 86.0, 96.0
 
 d = g.Design(NAME, 'SolderDemon m68k GPIO / 32 x 5V, 3x ATF1502AS', 'r1', '2026-10-13', paper='A2', libname=NAME, ns='solderdemon-gpio-r2/')  # ns seeds every UUID; changing it forces a re-route
 FP_PLCC = 'Package_LCC:PLCC-44_THT-Socket'
@@ -192,24 +192,26 @@ BX = W - 6.0
 place('J1', BX, 87.37, 180, pin1=True); ref_at('J1', BX + 1.27, 91.2)
 MID = H / 2
 for ref, y in [('U1', 17.0), ('U2', 48.0), ('U3', 79.0)]:
-    place(ref, 65.0, y, 0); ref_at(ref, 65.0, y + 13.0)
-place('J4', 42.0, 48.0, 0); ref_at('J4', 41.0, 36.0)
-place('D2', 43.0, 12.0, 0); ref_at('D2', 43.0, 7.5)
-place('C13', 44.0, 86.5, 0); ref_at('C13', 38.0, 86.5, 90)
+    place(ref, 45.0, y, 0); ref_at(ref, 45.0, y + 13.0)
+# JTAG sits in the gap between the GPIO headers, D2 and the bulk capacitor in the corner above J2,
+# so nothing but routing is left between the resistor arrays and the CPLDs.
+place('J4', 22.5, 48.0, 0); ref_at('J4', 22.5, 40.6)
+place('D2', 8.5, 4.5, 0); ref_at('D2', 8.5, 6.8)
+place('C13', 20.5, 6.0, 0); ref_at('C13', 15.8, 6.0, 90)
 # Four 100 nF bypass capacitors flank each PLCC socket's power pins.
-for i, (x, y) in enumerate([(82, 6), (90, 12), (82, 22), (90, 28),
-                             (82, 37), (90, 43), (82, 53), (90, 59),
-                             (82, 68), (90, 74), (82, 84), (90, 90)], 1):
+for i, (x, y) in enumerate([(62, 6), (70, 12), (62, 22), (70, 28),
+                             (62, 37), (70, 43), (62, 53), (70, 59),
+                             (62, 68), (70, 74), (62, 84), (70, 90)], 1):
     place(f'C{i}', x, y, 90); ref_at(f'C{i}', x, y - 3.8)
 
 CONNECTOR_SHIFT = H / 2 - ((40.0 + 86.0) / 2 - 11.43)
 J_PIN1 = {'J2': 40.0 + CONNECTOR_SHIFT, 'J3': 86.0 + CONNECTOR_SHIFT}
 for jref in ('J2', 'J3'):
     y1 = J_PIN1[jref]
-    place(jref, 16.5, y1, 180, pin1=True); ref_at(jref, 10.0, y1 - 26.0)
+    place(jref, 16.5, y1, 180, pin1=True); ref_at(jref, 10.0, y1 - 26.0 if jref == 'J2' else y1 + 2.8)   # J3's label under it, clear of the logo
 for i in range(4):
     rn, y = f'RN{i + 1}', 12.35 + 23.75 * i
-    place(rn, 28.0, y, 90); ref_at(rn, 32.2, y, 90)
+    place(rn, 28.0, y, 90); ref_at(rn, 31.6, y, 90)
 
 
 def seg(a, z, layer=pcb.F_SilkS, width=.15, shape=pcb.SHAPE_T_SEGMENT):
@@ -250,20 +252,20 @@ for jref, (lo, hi) in {'J2': ('A', 'B'), 'J3': ('C', 'D')}.items():
 text('BUS', BX + 1.27, 5, 1.0, left=False)
 
 # SolderDemon identity as on solderdemon_m68k-ramboard: the pixel logo with the name under it,
-# in the column between the resistor arrays and the CPLDs, below J4.
-LX = 44.0
+# in the gap between J2 and J3, left of J4.
+LX = 10.0
 logo = pcb.FootprintLoad(str(LOCAL_FP), 'SolderDemon_Logo'); logo.SetFPID(pcb.LIB_ID(NAME, 'SolderDemon_Logo'))
-logo.SetReference('LOGO1'); logo.SetPosition(v(LX, 65.5)); b.Add(logo)
-text('SolderDemon', LX, 76.6, 1.5, left=False, bold=True)
-text('GPIO Card r1', LX, 78.7, 1.0, left=False)
-text(f'32 x 5V   ${BASE + 1:06X}', LX, 80.4, .8, left=False)
-# Register map on the back, behind the logo (mirrored text, centred on the column).
+logo.SetReference('LOGO1'); logo.SetPosition(v(LX, 45.0)); b.Add(logo)
+text('SolderDemon', LX, 52.8, 1.3, left=False, bold=True)
+text('GPIO Card r1', LX, 54.7, .9, left=False)
+text(f'32 x 5V   ${BASE + 1:06X}', LX, 56.4, .8, left=False)
+# Register map on the back, behind the logo (mirrored text).
 for i, line in enumerate(['GPIO REGISTERS', 'byte access only',
                           f'${BASE + 1:06X} A   ${BASE + 3:06X} B', f'${BASE + 7:06X} C   ${BASE + 9:06X} D',
-                          'write = outputs, read = pins',
+                          'write = out, read = pins',
                           f'${BASE + 5:06X} DIR, write only', 'b0..b3 = A..D, 1 = output', 'after reset: all inputs', '',
-                          f'{NAME} r1', 'October 2026', 'Copyright ©2026 SolderDemon']):
-    if line: text(line, LX, 58.0 + i * 1.65, .8, pcb.B_SilkS, left=False, bold=i == 0)
+                          f'{NAME} r1', 'October 2026', '© 2026 SolderDemon']):
+    if line: text(line, LX, 39.2 + i * 1.5, .8, pcb.B_SilkS, left=False, bold=i == 0)
 title = b.GetTitleBlock(); title.SetTitle(d.title); title.SetDate(d.date); title.SetRevision(d.rev); title.SetCompany('SolderDemon')
 
 # No-connect pins get 'unconnected-(...)' nets in the schematic; copy nets and pin metadata onto the pads.
