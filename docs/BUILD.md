@@ -8,7 +8,7 @@ The schematic, PCB, BOM and local libraries are not edited by hand: the scripts 
 - Docker Desktop with `dinoboards/cpld-toolchain:latest` to compile the three ATF1502AS PLCC-44 CUPL files and verify locked pins
 - **Java 25+**. Freerouting 2.4.1 lives in the workspace `tools/` directory and `tools/route_card.py` finds it itself; `FREEROUTING_JAR` overrides it. Routing goes through `tools/route_swarm.py`, which runs several differently-tuned routers at once and keeps the first result KiCad DRC calls clean -- see [AGENTS.md](../../AGENTS.md) section 6.
 - clang or gcc for the driver test
-- The shared workspace `tools/` directory next to this repository: `build_card.py` uses its capacitor footprint library, and `route_card.py` uses its routing tools. A standalone clone does not currently include these dependencies.
+- The shared workspace `tools/` directory for routing. The committed KiCad project includes the custom footprints needed to inspect and check the board in a standalone clone.
 
 ## Pipeline
 

@@ -1,3 +1,3 @@
-(fp_lib_table (lib (name "solderdemon_m68k-gpio") (type "KiCad") (uri "${KIPRJMOD}/solderdemon_m68k-gpio.pretty") (options "") (descr ""))(lib (name "SolderDemonCaps") (type "KiCad") (uri "${KIPRJMOD}/../../tools/capacitors/SolderDemonCaps.pretty") (options "") (descr ""))
-  (lib (name "SolderDemonBrand")(type "KiCad")(uri "${KIPRJMOD}/../../tools/brand/SolderDemon.pretty")(options "")(descr "SolderDemon logo, tools/brand"))
+(fp_lib_table (lib (name "solderdemon_m68k-gpio") (type "KiCad") (uri "${KIPRJMOD}/solderdemon_m68k-gpio.pretty") (options "") (descr ""))(lib (name "SolderDemonCaps") (type "KiCad") (uri "${KIPRJMOD}/SolderDemonCaps.pretty") (options "") (descr ""))
+  (lib (name "SolderDemonBrand")(type "KiCad")(uri "${KIPRJMOD}/SolderDemonBrand.pretty")(options "")(descr "SolderDemon logo, tools/brand"))
 )

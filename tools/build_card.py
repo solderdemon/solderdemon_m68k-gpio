@@ -153,7 +153,7 @@ fps = {}
 for p in d.parts:
     if p['ref'].startswith('#'): continue
     lib, name = p['fp'].split(':')
-    f = pcb.FootprintLoad(str(ROOT.parent / 'tools/capacitors/SolderDemonCaps.pretty' if lib == 'SolderDemonCaps' else LOCAL_FP if lib == NAME else g.LIB / 'footprints' / (lib + '.pretty')), name); assert f, p['fp']
+    f = pcb.FootprintLoad(str(ROOT / 'design' / 'SolderDemonCaps.pretty' if lib == 'SolderDemonCaps' else LOCAL_FP if lib == NAME else g.LIB / 'footprints' / (lib + '.pretty')), name); assert f, p['fp']
     f.SetFPID(pcb.LIB_ID(lib, name))
     f.SetReference(p['ref']); f.SetValue(p['value']); f.SetPath(pcb.KIID_PATH('/' + d.uid('root') + '/' + p['uuid']))
     for pad in f.Pads():
