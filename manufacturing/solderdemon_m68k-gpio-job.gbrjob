@@ -3,9 +3,9 @@
     "GenerationSoftware": {
       "Vendor": "KiCad",
       "Application": "Pcbnew",
-      "Version": "10.0.1"
+      "Version": "10.0.7-10.0.7~ubuntu26.04.1"
     },
-    "CreationDate": "2026-10-13T22:06:08+03:00"
+    "CreationDate": "2026-10-15T18:07:29+03:00"
   },
   "GeneralSpecs": {
     "ProjectId": {
@@ -34,37 +34,47 @@
   ],
   "FilesAttributes": [
     {
-      "Path": "solderdemon_m68k-gpio-F_Cu.gtl",
+      "Path": "solderdemon_m68k-gpio-F_Cu.gbr",
       "FileFunction": "Copper,L1,Top",
       "FilePolarity": "Positive"
     },
     {
-      "Path": "solderdemon_m68k-gpio-B_Cu.gbl",
+      "Path": "solderdemon_m68k-gpio-B_Cu.gbr",
       "FileFunction": "Copper,L2,Bot",
       "FilePolarity": "Positive"
     },
     {
-      "Path": "solderdemon_m68k-gpio-F_Silkscreen.gto",
+      "Path": "solderdemon_m68k-gpio-F_Paste.gbr",
+      "FileFunction": "SolderPaste,Top",
+      "FilePolarity": "Positive"
+    },
+    {
+      "Path": "solderdemon_m68k-gpio-B_Paste.gbr",
+      "FileFunction": "SolderPaste,Bot",
+      "FilePolarity": "Positive"
+    },
+    {
+      "Path": "solderdemon_m68k-gpio-F_Silkscreen.gbr",
       "FileFunction": "Legend,Top",
       "FilePolarity": "Positive"
     },
     {
-      "Path": "solderdemon_m68k-gpio-B_Silkscreen.gbo",
+      "Path": "solderdemon_m68k-gpio-B_Silkscreen.gbr",
       "FileFunction": "Legend,Bot",
       "FilePolarity": "Positive"
     },
     {
-      "Path": "solderdemon_m68k-gpio-F_Mask.gts",
+      "Path": "solderdemon_m68k-gpio-F_Mask.gbr",
       "FileFunction": "SolderMask,Top",
       "FilePolarity": "Negative"
     },
     {
-      "Path": "solderdemon_m68k-gpio-B_Mask.gbs",
+      "Path": "solderdemon_m68k-gpio-B_Mask.gbr",
       "FileFunction": "SolderMask,Bot",
       "FilePolarity": "Negative"
     },
     {
-      "Path": "solderdemon_m68k-gpio-Edge_Cuts.gm1",
+      "Path": "solderdemon_m68k-gpio-Edge_Cuts.gbr",
       "FileFunction": "Profile",
       "FilePolarity": "Positive"
     }

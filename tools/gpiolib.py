@@ -121,6 +121,8 @@ class Design:
                 if net: nets.setdefault(net, []).append((p['ref'], pin))
         return nets
     def write(self, outdir, fp_libs):
+        if any(p['fp'].startswith('SolderDemonCaps:') for p in self.parts):
+            fp_libs = [*fp_libs, ('SolderDemonCaps', '${KIPRJMOD}/../../tools/capacitors/SolderDemonCaps.pretty')]
         out = Path(outdir); out.mkdir(parents=True, exist_ok=True)
         els = []; stubs = []
         for p in self.parts:

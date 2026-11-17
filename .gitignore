@@ -1,3 +1,26 @@
-cpld/bin/*
-!cpld/bin/*.jed
-!cpld/bin/*.fit
+code/firmware/cpld/bin/*
+!code/firmware/cpld/bin/*.jed
+!code/firmware/cpld/bin/*.fit
+
+# Local build products
+/code/build/*
+!/code/build/README.md
+
+# Local routing, editor and build artifacts
+/routing-swarm/
+/production/
+/preview/
+/.history/
+/*-backups/
+__pycache__/
+*.py[cod]
+
+# KiCad local state and intermediate routing files
+/design/*.kicad_prl
+/design/routing.dsn
+/design/routing.ses
+
+# Locally compiled host tests
+/code/tests/test_driver
+/code/tests/test_driver.exe
+/design/fabrication-toolkit-options.json

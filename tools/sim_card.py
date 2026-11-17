@@ -3,7 +3,7 @@ from pathlib import Path
 import cupl
 
 root = Path(__file__).resolve().parents[1]
-dev = {name: cupl.Device((root / 'cpld' / (name + '.pld')).read_text())
+dev = {name: cupl.Device((root / 'code' / 'firmware' / 'cpld' / (name + '.pld')).read_text())
        for name in ('gpio_decode', 'gpio_ab', 'gpio_cd')}
 
 # Exhaust the seven address bits, all eight slots and both bus directions.

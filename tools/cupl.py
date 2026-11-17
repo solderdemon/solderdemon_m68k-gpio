@@ -1,4 +1,4 @@
-"""Reader and simulator for the subset of CUPL used in code/pld/cpld/*.pld.
+"""Reader and simulator for the subset of CUPL used in code/firmware/pld/cpld/*.pld.
 
 Supports PIN / PINNODE / FIELD declarations (with [a..b] ranges and lists), intermediate variables,
 the operators ! & # $ and parentheses, numbers ('b'/'d'/'h', bare = hex), field equality and ranges

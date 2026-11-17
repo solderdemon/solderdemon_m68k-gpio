@@ -7,12 +7,12 @@ exactly — a track by net, a point on it and its reported length, a via by net 
 so a healthy track passing through the same point is never touched.
 """
 from pathlib import Path
-import re, subprocess
+import re, shutil, subprocess
 import pcbnew as pcb
 
 ROOT = Path(__file__).resolve().parents[1]
-BOARD = ROOT / 'solderdemon_m68k-gpio.kicad_pcb'
-CLI = 'C:/Program Files/KiCad/10.0/bin/kicad-cli.exe'
+BOARD = ROOT / 'design' / 'solderdemon_m68k-gpio.kicad_pcb'
+CLI = shutil.which('kicad-cli') or 'C:/Program Files/KiCad/10.0/bin/kicad-cli.exe'
 RPT = ROOT / 'drc.rpt'
 
 subprocess.run([CLI, 'pcb', 'drc', '-o', str(RPT), str(BOARD)], capture_output=True)

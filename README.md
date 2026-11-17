@@ -1,14 +1,23 @@
-# SolderDemon m68k GPIO — 32 × 5 V, ATF1502AS
+# SolderDemon m68k GPIO
 
-Expansion card for the SolderDemon m68k, compatible with rosco_m68k. It connects through J1 and provides **32 GPIO pins** at 5 V logic levels in four 8-bit ports on two right-angle 2×10 pin headers, J2 and J3. Three 5 V ATF1502AS CPLDs in the same 44-pin package as SolderDemon 6502 replace the twelve 74HCT logic chips. The four 10 kΩ pull-up networks and DTACK diode remain. There is no 3.3 V rail.
+Adds 32 GPIO lines at 5 V logic levels in four 8-bit ports. Two right-angle headers expose the signals, and three ATF1502AS CPLDs handle bus decoding and port control.
 
-J1 has the same pinout and signals as the rosco_m68k r2 expansion bus, so the card works in both systems.
+J1 matches the expansion bus pinout of [rosco_m68k r2](https://github.com/rosco-m68k/rosco_m68k). The original rosco_m68k project was created by Ross Bamford, The Really Old-School Company Limited, and contributors.
 
-Board renders: [top](solderdemon_m68k-gpio-top.png), [bottom](solderdemon_m68k-gpio-bottom.png), [3D](solderdemon_m68k-gpio-3d.png).
+**Status.** r1 fabrication files and CPLD programming files are available. An assembled board is shown below. Hardware verification is pending.
 
-**Status:** r1 on branch `gpio-atf1502as-5v`, ready to order. Three CUPL sources fit with locked pins and produce JEDEC files; the 86 × 96 mm board is routed with clean ERC/DRC; worst-case bus timing at 10 MHz is checked in [docs/TIMING.md](docs/TIMING.md); `manufacturing/` holds the r1 fabrication files. No board has been built yet.
+![Assembled SolderDemon m68k GPIO board](solderdemon_m68k-gpio-photo.jpg)
 
-## At a glance
+[Top view](solderdemon_m68k-gpio-top.png) · [Bottom view](solderdemon_m68k-gpio-bottom.png)
+
+## Start here
+
+- [KiCad project](design/solderdemon_m68k-gpio.kicad_pro)
+- [Schematic (PDF)](manufacturing/solderdemon_m68k-gpio-schematic.pdf)
+- [Gerbers and drill files](manufacturing/solderdemon_m68k-gpio-fab.zip)
+- [Assembly and bring-up](docs/BRINGUP.md)
+
+## Features
 
 | | |
 |---|---|
@@ -64,17 +73,17 @@ uint32_t in = gpio_read();                          /* B in bits 8..15, D in bit
 
 For a PS/2 keyboard and mouse on J2 or J3, see the [GPIO PS/2 adapter](../solderdemon_m68k-gpio-ps2).
 
-## Files
+## Design files
 
 | Path | Contents |
 |---|---|
-| `solderdemon_m68k-gpio.kicad_pro` / `.kicad_sch` / `.kicad_pcb` | KiCad 10 project |
+| `design/solderdemon_m68k-gpio.kicad_pro` / `.kicad_sch` / `.kicad_pcb` | KiCad 10 project |
 | `solderdemon_m68k-gpio.kicad_sym`, `solderdemon_m68k-gpio.pretty/` | local CPLD/bus symbols, the J1 socket footprint and the SolderDemon logo |
-| `cpld/gpio_decode.pld`, `gpio_ab.pld`, `gpio_cd.pld`, `build.sh` | ATF1502AS logic, pinouts and JEDEC builds |
+| `code/firmware/cpld/gpio_decode.pld`, `gpio_ab.pld`, `gpio_cd.pld`, `build.sh` | ATF1502AS logic, pinouts and JEDEC builds |
 | `logo.png` | logo source; `tools/make_logo.py` turns it into `SolderDemon_Logo` (same generator and size as on the busboard) |
 | `manufacturing/` | r1 Gerbers, drill, fab zip, pos, BOM and schematic PDF |
-| `software/` | driver `gpio.c/.h`, example `main.c`, Makefile |
-| `tests/test_driver.c` | driver test against a model of the latches, direction register and pull-ups |
+| `code/software/` | driver `gpio.c/.h`, example `main.c`, Makefile |
+| `code/tests/test_driver.c` | driver test against a model of the latches, direction register and pull-ups |
 | `tools/build_card.py`, `tools/make_bus_footprint.py`, `tools/make_logo.py`, `tools/route_card.py`, `tools/cleanup_dangling.py` | schematic/PCB generation, J1 footprint, routing, router clean-up |
 | `tools/cupl.py`, `tools/sim_card.py` | CUPL source interpreter and GPIO behavior checks |
 | [docs/DESIGN.md](docs/DESIGN.md) | how the card works: addressing, bus cycles, DTACK diode, levels, power |
@@ -82,12 +91,29 @@ For a PS/2 keyboard and mouse on J2 or J3, see the [GPIO PS/2 adapter](../solder
 | [docs/BRINGUP.md](docs/BRINGUP.md) | assembly and first power-up |
 | [docs/BUILD.md](docs/BUILD.md) | regenerating the files |
 
-Unreleased designs that preceded r1 are archived in `solderdemon_m68k-gpio-backups/`: an MC68B21 PIA design in `r1-pia-spi/`, 2 × MCP23S17 with 5 V + 3.3 V banks in `r2-mcp23s17/`, and a 16-pin 74HCT version (ports A/B only, 8 ICs) in `r3-16pin/`. The twelve-chip 74HCT version is commit `0e0b6f5` on `main`.
-
-Copyright © 2026 SolderDemon. The GPIO hardware and driver were authored by Mykhailo. The J1 expansion bus follows the [rosco_m68k](https://github.com/rosco-m68k/rosco_m68k) interface (Ross Bamford, The Really Old-School Company Limited, and contributors) for compatibility; its copyright and licence terms remain in force.
 
 ## Verification
 
 - r1 schematic ERC: 0 violations; schematic/PCB parity: 0 issues.
 - All three CPLD sources fit successfully with locked pins and JEDEC output (decoder 11/32 macrocells, each port CPLD 27/32). CUPL source simulation passes address decode, writes, reset and pin readback. ERC: 0 violations. Routed DRC: 0 violations, 0 unconnected pads, 0 schematic parity issues; 123 vias. Worst-case timing at 10 MHz: reads with zero wait states (/DTACK margin 75 ns, data margin 167 ns), writes with at most one; see docs/TIMING.md. The driver test models the register interface, but it does not verify the new CPLD fuse maps.
 - Physical board and /DTACK level on an oscilloscope remain unverified.
+
+<!-- repository-layout -->
+## Repository layout
+
+- [`design/`](design/solderdemon_m68k-gpio.kicad_pro): KiCad project, schematic sheets, PCB, local libraries and design data. Open the project directly here.
+- [`code/firmware/`](code/firmware/): ROM and programmable-logic sources and programming files.
+- [`code/software/`](code/software/): drivers, examples and applications.
+- [`code/build/`](code/build/): local build products; ignored by Git except for its README.
+- [`tools/`](tools/): generators, simulations and export scripts. Run commands from the repository root unless stated otherwise.
+- [`manufacturing/`](manufacturing/): fabrication packages.
+
+Programmable-logic files are in `code/firmware/cpld/`. Native CPLD tools retain their adjacent `bin/` outputs.
+Design files and documentation are generated by scripts in `tools/`; change the sources and regenerate. Keep `.kicad_pro` as the source of DRC rules.
+<!-- /repository-layout -->
+
+## Licences and attribution
+
+No repository-wide licence is currently specified. Consult the notices retained in individual source files and third-party material.
+
+Copyright © 2026 SolderDemon. The GPIO hardware and driver were authored by Mykhailo. Retained source and third-party notices are preserved.

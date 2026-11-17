@@ -11,16 +11,16 @@ RN3,8x10k,Resistor_THT:R_Array_SIP9
 RN4,8x10k,Resistor_THT:R_Array_SIP9
 J2,16 GPIO 5V A/B,Connector_PinHeader_2.54mm:PinHeader_2x10_P2.54mm_Horizontal
 J3,16 GPIO 5V C/D,Connector_PinHeader_2.54mm:PinHeader_2x10_P2.54mm_Horizontal
-C1,100nF,Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P2.50mm
-C2,100nF,Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P2.50mm
-C3,100nF,Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P2.50mm
-C4,100nF,Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P2.50mm
-C5,100nF,Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P2.50mm
-C6,100nF,Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P2.50mm
-C7,100nF,Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P2.50mm
-C8,100nF,Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P2.50mm
-C9,100nF,Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P2.50mm
-C10,100nF,Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P2.50mm
-C11,100nF,Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P2.50mm
-C12,100nF,Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P2.50mm
+C1,100nF,SolderDemonCaps:C_Radial_5.08mm
+C2,100nF,SolderDemonCaps:C_Radial_5.08mm
+C3,100nF,SolderDemonCaps:C_Radial_5.08mm
+C4,100nF,SolderDemonCaps:C_Radial_5.08mm
+C5,100nF,SolderDemonCaps:C_Radial_5.08mm
+C6,100nF,SolderDemonCaps:C_Radial_5.08mm
+C7,100nF,SolderDemonCaps:C_Radial_5.08mm
+C8,100nF,SolderDemonCaps:C_Radial_5.08mm
+C9,100nF,SolderDemonCaps:C_Radial_5.08mm
+C10,100nF,SolderDemonCaps:C_Radial_5.08mm
+C11,100nF,SolderDemonCaps:C_Radial_5.08mm
+C12,100nF,SolderDemonCaps:C_Radial_5.08mm
 C13,47uF 10V,Capacitor_THT:CP_Radial_D6.3mm_P2.50mm

@@ -1,6 +1,6 @@
 # Three ATF1502AS GPIO card design
 
-Three 5 V ATF1502AS-10JU44 CPLDs in PLCC-44 sockets replace the twelve 74HCT ICs of the earlier version. `cpld/gpio_decode.pld`, `gpio_ab.pld` and `gpio_cd.pld` define logic and pin assignments; `tools/build_card.py` reads the pins to generate the KiCad design. All three use the same 44-pin family as SolderDemon 6502.
+Three 5 V ATF1502AS-10JU44 CPLDs in PLCC-44 sockets replace the twelve 74HCT ICs of the earlier version. `code/firmware/cpld/gpio_decode.pld`, `gpio_ab.pld` and `gpio_cd.pld` define logic and pin assignments; `tools/build_card.py` reads the pins to generate the KiCad design. All three use the same 44-pin family as SolderDemon 6502.
 
 - U1 decodes /IOSEL, /LDS, A19..A13 and A1..A3, generating five write strobes, four read enables and /CARD.
 - U2 holds ports A/B; U3 holds ports C/D. Each has 16 registered GPIO outputs, two direction bits and eight bidirectional CPU data pins.
@@ -17,5 +17,7 @@ Three 5 V ATF1502AS-10JU44 CPLDs in PLCC-44 sockets replace the twelve 74HCT ICs
 | `$F40009` | Port D latch | Port D pins |
 
 The two right-angle 2×10 GPIO headers keep the pinout of the 74HCT version: J2 carries A/B and J3 carries C/D. Pins 17, 19 and 20 are GND; pin 18 is +5 V. RN1–RN4 remain one straight column beside them. The SolderDemon logo and card name sit between RN3/RN4 and U2/U3, below J4; the back carries the register map behind them.
+
+J1's square bus pad is identified by the front-side triangle and `PIN 1` label, with `J1` on the same line to its right. The twelve 100 nF bypass capacitors form two aligned columns and six rows beside U1–U3, four per CPLD.
 
 All three CUPL sources fit with pin assignments kept and emit JEDEC files. The routed board passes KiCad ERC/DRC with schematic parity. Worst-case bus timing is worked out in [TIMING.md](TIMING.md). Check output current against the ATF1502AS datasheet rather than assuming the previous 74HCT574 limits.

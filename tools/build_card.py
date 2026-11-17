@@ -1,12 +1,12 @@
 """SolderDemon m68k GPIO r1: three 5 V PLCC-44 ATF1502AS devices."""
 from pathlib import Path
-import re, subprocess, sys, xml.etree.ElementTree as ET
+import re, shutil, subprocess, sys, xml.etree.ElementTree as ET
 import gpiolib as g
 import pcbnew as pcb
 
 ROOT = Path(__file__).resolve().parents[1]
-CLI = 'C:/Program Files/KiCad/10.0/bin/kicad-cli.exe'
-g.LIB = Path('C:/Program Files/KiCad/10.0/share/kicad')
+CLI = shutil.which('kicad-cli') or 'C:/Program Files/KiCad/10.0/bin/kicad-cli.exe'
+g.LIB = Path('/usr/share/kicad') if Path('/usr/share/kicad').exists() else Path('C:/Program Files/KiCad/10.0/share/kicad')
 NAME = 'solderdemon_m68k-gpio'
 BASE = 0xF40000
 W, H = 86.0, 96.0
@@ -14,12 +14,12 @@ W, H = 86.0, 96.0
 d = g.Design(NAME, 'SolderDemon m68k GPIO / 32 x 5V, 3x ATF1502AS', 'r1', '2026-10-13', paper='A2', libname=NAME, ns='solderdemon-gpio-r2/')  # ns seeds every UUID; changing it forces a re-route
 FP_PLCC = 'Package_LCC:PLCC-44_THT-Socket'
 FP_JTAG = 'Connector_PinHeader_2.54mm:PinHeader_2x05_P2.54mm_Vertical'
-FP_C = 'Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P2.50mm'
+FP_C = 'SolderDemonCaps:C_Radial_5.08mm'
 FP_CP = 'Capacitor_THT:CP_Radial_D6.3mm_P2.50mm'
 FP_RN = 'Resistor_THT:R_Array_SIP9'
 FP_D = 'Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal'
 FP_BUS = NAME + ':PinSocket_2x32_P2.54mm_Horizontal_CardEdge'   # stock socket, silkscreen trimmed at the card edge
-LOCAL_FP = ROOT / (NAME + '.pretty')
+LOCAL_FP = ROOT / 'design' / (NAME + '.pretty')
 FP_GPIO = 'Connector_PinHeader_2.54mm:PinHeader_2x10_P2.54mm_Horizontal'
 
 VCC_PINS = {3, 15, 23, 35}
@@ -57,7 +57,7 @@ jtag_chain = {'U1': ('JTAG_TDI', 'JTAG_LINK1'),
               'U2': ('JTAG_LINK1', 'JTAG_LINK2'),
               'U3': ('JTAG_LINK2', 'JTAG_TDO')}
 for index, (ref, source) in enumerate([('U1', 'gpio_decode'), ('U2', 'gpio_ab'), ('U3', 'gpio_cd')]):
-    src = (ROOT / 'cpld' / (source + '.pld')).read_text(encoding='utf-8')
+    src = (ROOT / 'code' / 'firmware' / 'cpld' / (source + '.pld')).read_text(encoding='utf-8')
     src = re.sub(r'/\*.*?\*/', '', src, flags=re.S)
     pins = {}
     for numbers, names in re.findall(r'PIN\s+(\[[^;]+?\]|\d+)\s*=\s*(\[[^;]+?\]|[A-Za-z_]\w*)\s*;', src, re.I):
@@ -134,7 +134,7 @@ d.note(f'Window ${BASE:06X}..${BASE + 0x1FFF:06X}, byte access (LDS) only; regis
 d.note(f'${BASE + 1:06X} port A, ${BASE + 3:06X} port B, ${BASE + 7:06X} port C, ${BASE + 9:06X} port D: write = output latch, read = pin levels.', 20, 391, 2)
 d.note(f'${BASE + 5:06X}: write direction b0..b3 = ports A..D (1 = output). System reset: all inputs. Latches are random until written.', 20, 397, 2)
 
-d.write(ROOT, [(NAME, '${KIPRJMOD}/' + NAME + '.pretty')])
+d.write(ROOT / 'design', [(NAME, '${KIPRJMOD}/' + NAME + '.pretty')])
 subprocess.run([sys.executable, str(Path(__file__).with_name('build_docs.py'))], check=True)
 
 # Local bus socket with the off-card silkscreen trimmed (separate process, see make_bus_footprint.py).
@@ -153,7 +153,7 @@ fps = {}
 for p in d.parts:
     if p['ref'].startswith('#'): continue
     lib, name = p['fp'].split(':')
-    f = pcb.FootprintLoad(str(LOCAL_FP if lib == NAME else g.LIB / 'footprints' / (lib + '.pretty')), name); assert f, p['fp']
+    f = pcb.FootprintLoad(str(ROOT.parent / 'tools/capacitors/SolderDemonCaps.pretty' if lib == 'SolderDemonCaps' else LOCAL_FP if lib == NAME else g.LIB / 'footprints' / (lib + '.pretty')), name); assert f, p['fp']
     f.SetFPID(pcb.LIB_ID(lib, name))
     f.SetReference(p['ref']); f.SetValue(p['value']); f.SetPath(pcb.KIID_PATH('/' + d.uid('root') + '/' + p['uuid']))
     for pad in f.Pads():
@@ -189,7 +189,8 @@ def column(rows, left, cap_x):
 
 # J1 and the two GPIO headers retain their mating positions at opposite edges.
 BX = W - 6.0
-place('J1', BX, 87.37, 180, pin1=True); ref_at('J1', BX + 1.27, 91.2)
+place('J1', BX, 87.37, 180, pin1=True); ref_at('J1', BX + 3.0, 91.72)
+fps['J1'].Reference().SetTextSize(v(.8, .8)); fps['J1'].Reference().SetTextThickness(pcb.FromMM(.12))
 MID = H / 2
 for ref, y in [('U1', 17.0), ('U2', 48.0), ('U3', 79.0)]:
     place(ref, 45.0, y, 0); ref_at(ref, 45.0, y + 13.0)
@@ -198,11 +199,11 @@ for ref, y in [('U1', 17.0), ('U2', 48.0), ('U3', 79.0)]:
 place('J4', 22.5, 48.0, 0); ref_at('J4', 22.5, 40.6)
 place('D2', 8.5, 4.5, 0); ref_at('D2', 8.5, 6.8)
 place('C13', 20.5, 6.0, 0); ref_at('C13', 15.8, 6.0, 90)
-# Four 100 nF bypass capacitors flank each PLCC socket's power pins.
-for i, (x, y) in enumerate([(62, 6), (70, 12), (62, 22), (70, 28),
-                             (62, 37), (70, 43), (62, 53), (70, 59),
-                             (62, 68), (70, 74), (62, 84), (70, 90)], 1):
-    place(f'C{i}', x, y, 90); ref_at(f'C{i}', x, y - 3.8)
+# Four 100 nF bypass capacitors per CPLD, in a regular two-column grid.
+# Each pair stays close to the power pins while the six rows align visually.
+for i, (x, y) in enumerate([(x, y) for y in (9, 25, 40, 56, 71, 87)
+                             for x in (62.5, 70.5)], 1):
+    place(f'C{i}', x, y, 90); ref_at(f'C{i}', x, y - 4.5)
 
 CONNECTOR_SHIFT = H / 2 - ((40.0 + 86.0) / 2 - 11.43)
 J_PIN1 = {'J2': 40.0 + CONNECTOR_SHIFT, 'J3': 86.0 + CONNECTOR_SHIFT}
@@ -232,6 +233,15 @@ def text(s, x, y, size=1.0, layer=pcb.F_SilkS, left=True, angle=0, bold=False):
     b.Add(t)
 
 
+def pin1_mark(x, y):
+    """Label a connector's first pad with the filled pointer used on the 6502 audio card."""
+    tri = pcb.PCB_SHAPE(b, pcb.SHAPE_T_POLY)
+    tri.SetPolyPoints(pcb.VECTOR_VECTOR2I([v(x, y + 1.9), v(x - .7, y + 3.1),
+                                           v(x + .7, y + 3.1)]))
+    tri.SetFilled(True); tri.SetWidth(0); tri.SetLayer(pcb.F_SilkS); b.Add(tri)
+    text('PIN 1', x, y + 4.35, .8, left=False)
+
+
 # Board outline, 3 mm corner radius.
 r = 3.0; k45 = r * (1 - 0.70710678)
 seg((r, 0), (W - r, 0), pcb.Edge_Cuts, .05); seg((W, r), (W, H - r), pcb.Edge_Cuts, .05)
@@ -250,6 +260,7 @@ for jref, (lo, hi) in {'J2': ('A', 'B'), 'J3': ('C', 'D')}.items():
             names = 'GND 5V' if row == 8 else 'GND GND'
         text(names, 20.5, y1 - row * 2.54, .8)
 text('BUS', BX + 1.27, 5, 1.0, left=False)
+pin1_mark(BX, 87.37)  # J1 bus socket: pin 1 is the lower square pad.
 
 # SolderDemon identity as on solderdemon_m68k-ramboard: the pixel logo with the name under it,
 # in the gap between J2 and J3, left of J4.
@@ -270,7 +281,7 @@ title = b.GetTitleBlock(); title.SetTitle(d.title); title.SetDate(d.date); title
 
 # No-connect pins get 'unconnected-(...)' nets in the schematic; copy nets and pin metadata onto the pads.
 netlist = ROOT / 'netlist.xml'
-subprocess.run([CLI, 'sch', 'export', 'netlist', '--format', 'kicadxml', '-o', str(netlist), str(ROOT / f'{NAME}.kicad_sch')], check=True, capture_output=True)
+subprocess.run([CLI, 'sch', 'export', 'netlist', '--format', 'kicadxml', '-o', str(netlist), str(ROOT / 'design' / f'{NAME}.kicad_sch')], check=True, capture_output=True)
 for n in ET.parse(netlist).findall('./nets/net'):
     for node in n.findall('node'):
         f = fps.get(node.get('ref'))
@@ -285,10 +296,10 @@ for n in ET.parse(netlist).findall('./nets/net'):
 netlist.unlink()
 
 # SaveBoard of a fresh BOARD rewrites the .kicad_pro without its ERC/schematic sections; keep the project file.
-project = ROOT / (NAME + '.kicad_pro'); saved = project.read_bytes()
+project = ROOT / 'design' / (NAME + '.kicad_pro'); saved = project.read_bytes()
 try:
-    pcb.SaveBoard(str(ROOT / (NAME + '.kicad_pcb')), b)
+    pcb.SaveBoard(str(ROOT / 'design' / (NAME + '.kicad_pcb')), b)
 finally:
     project.write_bytes(saved)
-pcb.ExportSpecctraDSN(b, str(ROOT / 'routing.dsn'))
+pcb.ExportSpecctraDSN(b, str(ROOT / 'design' / 'routing.dsn'))
 print('Generated', len(d.parts), 'symbols;', len(nets), 'nets;', f'{W:g} x {H:g} mm')

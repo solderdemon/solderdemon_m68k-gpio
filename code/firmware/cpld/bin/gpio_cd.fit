@@ -1,0 +1,471 @@
+Atmel ATF1502 Fitter Version 1918 ,running Tue Oct 13 16:38:31 2026
+
+
+
+
+fit1502 gpio_cd.tt2
+
+****** Initial fitting strategy and property ******
+ Netlist_in_file = gpio_cd.tt2
+ Netlist_out_file = gpio_cd.tt3
+ Jedec_file = gpio_cd.jed
+ Vector_file = gpio_cd.tmv
+ verilog_file = gpio_cd.vt
+ Log_file = gpio_cd.fit
+ Device_name = PLCC44
+ Tech_name = ATF1502AS 
+ Package_type = PLCC
+ Preassignment = keep 
+ Security_mode = OFF
+ Pin-Keeper = OFF
+ supporter = CUPL
+ optimize = ON
+ Xor_synthesis = OFF
+ Foldback_logic = OFF
+ Cascade_logic = OFF
+ Output_fast = ON
+ *******************************
+ Power down pin 1 = OFF
+ Power down pin 2 = OFF
+ power_reset = OFF
+ JTAG = ON
+ TDI pullup = ON
+ TMS pullup = ON
+ MC_power = OFF
+ Open_collector = OFF
+ ITD0 = ON
+ ITD1 = ON
+ ITD2 = ON
+ Fast_inlatch = off
+ Latch_synthesis = off 
+ Push_gate = on 
+ Verilog_sim = off 
+ VHDL_sim = off 
+ Out_Edif = off 
+ Logic Doubling = off 
+ ****** End of fitting strategy and property ******
+---------------------------------------------------------
+ Fitter_Pass 1, Preassign = KEEP, LOGIC_DOUBLING : OFF 
+ ... 
+
+Performing global Output Enable pin assignments ...
+
+Performing global pin assignments ...
+--------------------------------------
+
+
+
+Final global control pins assignment (if applicable)...
+-------------------------------------------------------
+WR_C assigned to pin  2
+WR_D assigned to pin  43
+RESET_N assigned to pin  1
+
+
+
+Performing input pin pre-assignments ...
+------------------------------------
+WR_C assigned to pin  2
+WR_D assigned to pin  43
+RESET_N assigned to pin  1
+WR_DIR assigned to pin  44
+
+Attempt to place floating signals ...
+------------------------------------
+PC0 is placed at pin 4 (MC 1)
+PC1 is placed at pin 5 (MC 2)
+PC2 is placed at pin 6 (MC 3)
+TDI is placed at pin 7 (MC 4)
+DIR_D is placed at feedback node 604 (MC 4)
+PC3 is placed at pin 8 (MC 5)
+PC4 is placed at pin 9 (MC 6)
+PC5 is placed at pin 11 (MC 7)
+PC6 is placed at pin 12 (MC 8)
+TMS is placed at pin 13 (MC 9)
+DIR_C is placed at feedback node 609 (MC 9)
+PC7 is placed at pin 14 (MC 10)
+PD0 is placed at pin 16 (MC 11)
+PD1 is placed at pin 17 (MC 12)
+PD2 is placed at pin 18 (MC 13)
+PD3 is placed at pin 19 (MC 14)
+PD4 is placed at pin 20 (MC 15)
+PD5 is placed at pin 21 (MC 16)
+RD_D is placed at pin 39 (MC 19)
+TDO is placed at pin 38 (MC 20)
+RD_C is placed at pin 37 (MC 21)
+D7 is placed at pin 36 (MC 22)
+D6 is placed at pin 34 (MC 23)
+D5 is placed at pin 33 (MC 24)
+TCK is placed at pin 32 (MC 25)
+D4 is placed at pin 31 (MC 26)
+D3 is placed at pin 29 (MC 27)
+D2 is placed at pin 28 (MC 28)
+D1 is placed at pin 27 (MC 29)
+D0 is placed at pin 26 (MC 30)
+PD7 is placed at pin 25 (MC 31)
+PD6 is placed at pin 24 (MC 32)
+Com_Ctrl_129 is placed at foldback expander node 332 (MC 32)
+
+                                    R                 
+                                    E  W              
+                                    S  R              
+                                 W  E  _  W           
+                     P  P  P  V  R  T  D  R  G        
+                     C  C  C  C  _  _  I  _  N  N  N  
+                     2  1  0  C  C  N  R  D  D  C  C  
+                 +------------------------------------+
+                 |   6  5  4  3  2  1 44 43 42 41 40  |
+              TDI| 7                               39 |RD_D
+              PC3| 8                               38 |TDO
+              PC4| 9                               37 |RD_C
+              GND| 10                              36 |D7
+              PC5| 11            ATF1502           35 |VCC
+              PC6| 12         44-Lead PLCC         34 |D6
+              TMS| 13                              33 |D5
+              PC7| 14                              32 |TCK
+              VCC| 15                              31 |D4
+              PD0| 16                              30 |GND
+              PD1| 17                              29 |D3
+                 |  18 19 20 21 22 23 24 25 26 27 28  |
+                 +------------------------------------+
+                     P  P  P  P  G  V  P  P  D  D  D  
+                     D  D  D  D  N  C  D  D  0  1  2  
+                     2  3  4  5  D  C  6  7           
+
+
+
+
+VCC = Supply Voltage pin for the device core
+
+GND = GND pin which must be connected to ground
+
+TMS,TDI,TDO,TDI = JTAG pins reserved for JTAG interface
+
+NC = Unused I/O pins which must be unconnected on the board
+
+Universal-Interconnect-Multiplexer assignments
+------------------------------------------------
+FanIn assignment for block A [11]
+{
+D7,D6,D5,DIR_C,D1,D0,DIR_D,D3,D4,D2,
+WR_DIR,
+}
+Multiplexer assignment for block A
+D7			(MC3	P)   : MUX 0		Ref (B22p)
+D6			(MC4	P)   : MUX 4		Ref (B23p)
+D5			(MC5	P)   : MUX 6		Ref (B24p)
+WR_DIR			(MC11	FB)  : MUX 10		Ref (OE1)
+DIR_C			(MC2	FB)  : MUX 11		Ref (A9fb)
+D1			(MC9	P)   : MUX 22		Ref (B29p)
+D0			(MC10	P)   : MUX 24		Ref (B30p)
+DIR_D			(MC1	FB)  : MUX 30		Ref (A4fb)
+D3			(MC7	P)   : MUX 31		Ref (B27p)
+D4			(MC6	P)   : MUX 34		Ref (B26p)
+D2			(MC8	P)   : MUX 35		Ref (B28p)
+
+FanIn assignment for block B [21]
+{
+D6,D7,DIR_D,
+PC4,PC3,PC5,PC6,PC1,PC0,PC2,PD4,PD7,PD3,PD6,PD2,PD5,PD0,PD1,PC7,
+RD_C,RD_D,
+}
+Multiplexer assignment for block B
+PC4			(MC6	P)   : MUX 1		Ref (A6p)
+PC3			(MC5	P)   : MUX 2		Ref (A5p)
+RD_C			(MC21	P)   : MUX 3		Ref (B21p)
+PC5			(MC7	P)   : MUX 4		Ref (A7p)
+D6			(MC17	P)   : MUX 5		Ref (B23p)
+PC6			(MC8	P)   : MUX 6		Ref (A8p)
+D7			(MC16	P)   : MUX 7		Ref (B22p)
+PC1			(MC2	P)   : MUX 11		Ref (A2p)
+PC0			(MC1	P)   : MUX 12		Ref (A1p)
+PC2			(MC3	P)   : MUX 14		Ref (A3p)
+RD_D			(MC20	P)   : MUX 15		Ref (B19p)
+PD4			(MC14	P)   : MUX 20		Ref (A15p)
+PD7			(MC18	P)   : MUX 23		Ref (B31p)
+PD3			(MC13	P)   : MUX 24		Ref (A14p)
+PD6			(MC19	P)   : MUX 25		Ref (B32p)
+PD2			(MC12	P)   : MUX 26		Ref (A13p)
+PD5			(MC15	P)   : MUX 28		Ref (A16p)
+PD0			(MC10	P)   : MUX 30		Ref (A11p)
+PD1			(MC11	P)   : MUX 33		Ref (A12p)
+PC7			(MC9	P)   : MUX 35		Ref (A10p)
+DIR_D			(MC4	FB)  : MUX 39		Ref (A4fb)
+
+Creating JEDEC file gpio_cd.jed ...
+
+PLCC44 programmed logic:
+-----------------------------------
+D1 = ((PD1.PIN & RD_D)
+	# (PC1.PIN & RD_C));
+
+D0 = ((PD0.PIN & RD_D)
+	# (PC0.PIN & RD_C));
+
+D2 = ((PD2.PIN & RD_D)
+	# (PC2.PIN & RD_C));
+
+D4 = ((PD4.PIN & RD_D)
+	# (PC4.PIN & RD_C));
+
+D3 = ((PD3.PIN & RD_D)
+	# (PC3.PIN & RD_C));
+
+D5 = ((PD5.PIN & RD_D)
+	# (PC5.PIN & RD_C));
+
+D7 = ((PD7.PIN & RD_D)
+	# (PC7.PIN & RD_C));
+
+D6 = ((PD6.PIN & RD_D)
+	# (PC6.PIN & RD_C));
+
+DIR_C.D = D2.PIN;
+
+DIR_D.D = D3.PIN;
+
+PC0.D = D0.PIN;
+
+PC1.D = D1.PIN;
+
+PC2.D = D2.PIN;
+
+PC3.D = D3.PIN;
+
+PC4.D = D4.PIN;
+
+PC5.D = D5.PIN;
+
+PC6.D = D6.PIN;
+
+PC7.D = D7.PIN;
+
+PD0.D = D0.PIN;
+
+PD1.D = D1.PIN;
+
+PD2.D = D2.PIN;
+
+PD3.D = D3.PIN;
+
+PD4.D = D4.PIN;
+
+PD5.D = D5.PIN;
+
+PD6.D = D6.PIN;
+
+PD7.D = D7.PIN;
+
+!Com_Ctrl_129 = (!RD_C & !RD_D);
+
+D1.OE = Com_Ctrl_129;
+
+D0.OE = Com_Ctrl_129;
+
+D2.OE = Com_Ctrl_129;
+
+D4.OE = Com_Ctrl_129;
+
+D3.OE = Com_Ctrl_129;
+
+D5.OE = Com_Ctrl_129;
+
+D7.OE = Com_Ctrl_129;
+
+D6.OE = Com_Ctrl_129;
+
+DIR_C.C = WR_DIR;
+
+DIR_C.AR = !RESET_N;
+
+DIR_D.C = WR_DIR;
+
+DIR_D.AR = !RESET_N;
+
+PC0.C = WR_C;
+
+PC0.OE = DIR_C.Q;
+
+PC1.C = WR_C;
+
+PC1.OE = DIR_C.Q;
+
+PC2.C = WR_C;
+
+PC2.OE = DIR_C.Q;
+
+PC3.C = WR_C;
+
+PC3.OE = DIR_C.Q;
+
+PC4.C = WR_C;
+
+PC4.OE = DIR_C.Q;
+
+PC5.C = WR_C;
+
+PC5.OE = DIR_C.Q;
+
+PC6.C = WR_C;
+
+PC6.OE = DIR_C.Q;
+
+PC7.C = WR_C;
+
+PC7.OE = DIR_C.Q;
+
+PD0.C = WR_D;
+
+PD0.OE = DIR_D.Q;
+
+PD1.C = WR_D;
+
+PD1.OE = DIR_D.Q;
+
+PD2.C = WR_D;
+
+PD2.OE = DIR_D.Q;
+
+PD3.C = WR_D;
+
+PD3.OE = DIR_D.Q;
+
+PD4.C = WR_D;
+
+PD4.OE = DIR_D.Q;
+
+PD5.C = WR_D;
+
+PD5.OE = DIR_D.Q;
+
+PD6.C = WR_D;
+
+PD6.OE = DIR_D.Q;
+
+PD7.C = WR_D;
+
+PD7.OE = DIR_D.Q;
+
+
+PLCC44 Pin/Node Placement:
+------------------------------------
+Pin 1  = RESET_N;
+Pin 2  = WR_C;
+Pin 4  = PC0; /* MC 1 */
+Pin 5  = PC1; /* MC 2 */
+Pin 6  = PC2; /* MC 3 */
+Pin 7  = TDI; /* MC 4 */
+Pin 8  = PC3; /* MC 5 */
+Pin 9  = PC4; /* MC 6 */
+Pin 11 = PC5; /* MC  7 */
+Pin 12 = PC6; /* MC  8 */
+Pin 13 = TMS; /* MC  9 */
+Pin 14 = PC7; /* MC 10 */ 
+Pin 16 = PD0; /* MC 11 */ 
+Pin 17 = PD1; /* MC 12 */ 
+Pin 18 = PD2; /* MC 13 */ 
+Pin 19 = PD3; /* MC 14 */ 
+Pin 20 = PD4; /* MC 15 */ 
+Pin 21 = PD5; /* MC 16 */ 
+Pin 24 = PD6; /* MC 32 */ 
+Pin 25 = PD7; /* MC 31 */ 
+Pin 26 = D0; /* MC 30 */ 
+Pin 27 = D1; /* MC 29 */ 
+Pin 28 = D2; /* MC 28 */ 
+Pin 29 = D3; /* MC 27 */ 
+Pin 31 = D4; /* MC 26 */ 
+Pin 32 = TCK; /* MC 25 */ 
+Pin 33 = D5; /* MC 24 */ 
+Pin 34 = D6; /* MC 23 */ 
+Pin 36 = D7; /* MC 22 */ 
+Pin 37 = RD_C; /* MC 21 */ 
+Pin 38 = TDO; /* MC 20 */ 
+Pin 39 = RD_D; /* MC 19 */ 
+Pin 43 = WR_D;
+Pin 44 = WR_DIR;
+PINNODE 332 = Com_Ctrl_129; /* MC 32 Foldback */
+PINNODE 604 = DIR_D; /* MC 4 Feedback */
+PINNODE 609 = DIR_C; /* MC 9 Feedback */
+
+** Resource Usage **
+
+
+DCERP Field = Summary of Allocations.
+|||||
+|||||_Preset [p,-]       ==  p = PT preset, - No Preset.
+||||
+||||__Reset [g,r,-]      ==  g= Global AR, r = PT reset, - No reset.
+|||
+|||___Clock Enable [e,-] ==  e = Product Term, - always enabled.
+||
+||____Clock [c,g,-],     ==  c = Product term, g = Global term, - No Clock.
+|
+|_____Type [C,D,L,T],    ==  Register type C= combin, D=dff, L=latch, T=tff.
+
+For input only = INPUT.
+
+
+SO Pin Options Field = Summary of Allocations.
+||
+||_OpenCol [o,-]      ==  o = Open Collector enabled, - CMOS drive.
+|
+|__Slew [s,f]         ==  Output Slew/Drive rate, s = slow/low, f = fast/hi drive.
+
+
+MCell Pin# Oe   PinDrive  DCERP  FBDrive  DCERP  Foldback     CascadeOut     TotPT SO
+MC1   4    PT   PC0       Dg---  --              --           --             2     f- 
+MC2   5    PT   PC1       Dg---  --              --           --             2     f- 
+MC3   6    PT   PC2       Dg---  --              --           --             2     f- 
+MC4   7    --   TDI       INPUT  DIR_D    Dc-g-  --           --             2     f- 
+MC5   8    PT   PC3       Dg---  --              --           --             2     f- 
+MC6   9    PT   PC4       Dg---  --              --           --             2     f- 
+MC7   11   PT   PC5       Dg---  --              --           --             2     f- 
+MC8   12   PT   PC6       Dg---  --              --           --             2     f- 
+MC9   13   --   TMS       INPUT  DIR_C    Dc-g-  --           --             2     f- 
+MC10  14   PT   PC7       Dg---  --              --           --             2     f- 
+MC11  16   PT   PD0       Dg---  --              --           --             2     f- 
+MC12  17   PT   PD1       Dg---  --              --           --             2     f- 
+MC13  18   PT   PD2       Dg---  --              --           --             2     f- 
+MC14  19   PT   PD3       Dg---  --              --           --             2     f- 
+MC15  20   PT   PD4       Dg---  --              --           --             2     f- 
+MC16  21   PT   PD5       Dg---  --              --           --             2     f- 
+MC17  41        --               --              --           --             0     f- 
+MC18  40        --               --              --           --             0     f- 
+MC19  39   --   RD_D      INPUT  --              --           --             0     f- 
+MC20  38   --   TDO       C----  --              --           --             0     f- 
+MC21  37   --   RD_C      INPUT  --              --           --             0     f- 
+MC22  36   PT   D7        C----  --              --           --             3     f- 
+MC23  34   PT   D6        C----  --              --           --             3     f- 
+MC24  33   PT   D5        C----  --              --           --             3     f- 
+MC25  32   --   TCK       INPUT  --              --           --             0     f- 
+MC26  31   PT   D4        C----  --              --           --             3     f- 
+MC27  29   PT   D3        C----  --              --           --             3     f- 
+MC28  28   PT   D2        C----  --              --           --             3     f- 
+MC29  27   PT   D1        C----  --              --           --             3     f- 
+MC30  26   PT   D0        C----  --              --           --             3     f- 
+MC31  25   PT   PD7       Dg---  --              --           --             2     f- 
+MC32  24   PT   PD6       Dg---  --              Com_Ctrl_129 --             3     f- 
+MC0   2         WR_C      INPUT  --              --           --             0     f- 
+MC0   1         RESET_N   INPUT  --              --           --             0     f- 
+MC0   44        WR_DIR    INPUT  --              --           --             0     f- 
+MC0   43        WR_D      INPUT  --              --           --             0     f- 
+
+Logic Array Block			Macro Cells	I/O Pins	Foldbacks	TotalPT	FanIN		Cascades
+A: MC1	- MC16		16/16(100%)	16/16(100%)	0/16(0%)	32/80(40%)	11/40(27%)	0
+B: MC17	- MC32		11/16(68%)	14/16(87%)	1/16(6%)	29/80(36%)	21/40(52%)	0
+
+Total dedicated input used:	4/4 	(100%)
+Total I/O pins used		30/32 	(93%)
+Total Macro cells used 		27/32 	(84%)
+Total Flip-Flop used 		18/32 	(56%)
+Total Foldback logic used 	1/32 	(3%)
+Total Nodes+FB/MCells 		28/32 	(87%)
+Total cascade used 		0
+Total input pins 			9
+Total output pins 		25
+Total Pts 				61
+Creating pla file gpio_cd.tt3 with 0 inputs 0 outputs, 0 pins 0 nodes and 0 pterms...
+
+----------------  End fitter, Design FITS
+$Device PLCC44 fits; JTAG ON; Secure OFF
+FIT1502 completed in 0.00 seconds
